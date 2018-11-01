@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.letsiot.applications.dao.sys.SysUserLogMapper">
-	<resultMap id="BaseResultMap" type="com.letsiot.applications.entity.sys.SysUserLog">
+<mapper namespace="online.rubick.applications.dao.sys.SysUserLogMapper">
+	<resultMap id="BaseResultMap" type="online.rubick.applications.entity.sys.SysUserLog">
 		<id column="LOG_ID" property="logId" jdbcType="VARCHAR" />
 		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
 		<result column="ACTION" property="action" jdbcType="VARCHAR" />
 		<result column="LOG_TIME" property="logTime" jdbcType="TIMESTAMP" />
 	</resultMap>
-	<resultMap id="BaseResultMap2" type="com.letsiot.applications.entity.sys.SysUserLog">
+	<resultMap id="BaseResultMap2" type="online.rubick.applications.entity.sys.SysUserLog">
 		<id column="LOG_ID" property="logId" jdbcType="VARCHAR" />
 		<id column="LOGIN_ID" property="logUser" jdbcType="VARCHAR" />
 		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
@@ -29,7 +29,7 @@
 		delete from sys_user_log
 		where LOG_ID = #{logId,jdbcType=VARCHAR}
 	</delete>
-	<insert id="insert" parameterType="com.letsiot.applications.entity.sys.SysUserLog">
+	<insert id="insert" parameterType="online.rubick.applications.entity.sys.SysUserLog">
 		insert into sys_user_log (LOG_ID,USER_ID, ACTION, LOG_TIME)
 		values (#{logId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR},
 		#{action,jdbcType=VARCHAR}, #{logTime,jdbcType=TIMESTAMP})

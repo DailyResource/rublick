@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.letsiot.applications.dao.sys.SysMessageMapper">
-	<resultMap id="BaseResultMap" type="com.letsiot.applications.entity.sys.SysMessage" >
+<mapper namespace="online.rubick.applications.dao.sys.SysMessageMapper">
+	<resultMap id="BaseResultMap" type="online.rubick.applications.entity.sys.SysMessage" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="CONTACT_USER" property="contactUser" jdbcType="VARCHAR" />
     <result column="CONTACT_TEL" property="contactTel" jdbcType="VARCHAR" />
@@ -32,7 +32,7 @@
     delete from sys_message
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.letsiot.applications.entity.sys.SysMessage" >
+  <insert id="insert" parameterType="online.rubick.applications.entity.sys.SysMessage" >
     insert into sys_message (ID, CONTACT_USER, CONTACT_TEL, 
       TITLE, SEND_TIME, SEND_NUM, 
       RESEND_NUM, STATUS, CREATE_TIME, 
@@ -44,7 +44,7 @@
       #{messageType,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, 
       #{readFlag,jdbcType=VARCHAR}, #{warnType,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.letsiot.applications.entity.sys.SysMessage" >
+  <insert id="insertSelective" parameterType="online.rubick.applications.entity.sys.SysMessage" >
     insert into sys_message
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -135,7 +135,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.letsiot.applications.entity.sys.SysMessage" >
+  <update id="updateByPrimaryKeySelective" parameterType="online.rubick.applications.entity.sys.SysMessage" >
     update sys_message
     <set >
       <if test="contactUser != null" >
@@ -180,7 +180,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.letsiot.applications.entity.sys.SysMessage" >
+  <update id="updateByPrimaryKey" parameterType="online.rubick.applications.entity.sys.SysMessage" >
     update sys_message
     set CONTACT_USER = #{contactUser,jdbcType=VARCHAR},
       CONTACT_TEL = #{contactTel,jdbcType=VARCHAR},

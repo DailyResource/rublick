@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.letsiot.applications.dao.sys.SysMenuMapper" >
-  <resultMap id="BaseResultMap" type="com.letsiot.applications.entity.sys.SysMenu" >
+<mapper namespace="online.rubick.applications.dao.sys.SysMenuMapper" >
+  <resultMap id="BaseResultMap" type="online.rubick.applications.entity.sys.SysMenu" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="catalog_id" property="catalogId" jdbcType="VARCHAR" />
     <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
@@ -25,7 +25,7 @@
     delete from sys_menu
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.letsiot.applications.entity.sys.SysMenu" >
+  <insert id="insert" parameterType="online.rubick.applications.entity.sys.SysMenu" >
     insert into sys_menu (id, catalog_id, menu_name, 
       url, icon_path, description, 
       create_time, status,back_url)
@@ -33,7 +33,7 @@
       #{url,jdbcType=VARCHAR}, #{iconPath,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{backUrl,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.letsiot.applications.entity.sys.SysMenu" >
+  <insert id="insertSelective" parameterType="online.rubick.applications.entity.sys.SysMenu" >
     insert into sys_menu
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -94,7 +94,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.letsiot.applications.entity.sys.SysMenu" >
+  <update id="updateByPrimaryKeySelective" parameterType="online.rubick.applications.entity.sys.SysMenu" >
     update sys_menu
     <set >
       <if test="catalogId != null" >
@@ -124,7 +124,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.letsiot.applications.entity.sys.SysMenu" >
+  <update id="updateByPrimaryKey" parameterType="online.rubick.applications.entity.sys.SysMenu" >
     update sys_menu
     set catalog_id = #{catalogId,jdbcType=VARCHAR},
       menu_name = #{menuName,jdbcType=VARCHAR},
