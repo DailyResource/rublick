@@ -30,3 +30,4 @@ target/
 .springBeans
 log/
 temp/
+rebel.xml
