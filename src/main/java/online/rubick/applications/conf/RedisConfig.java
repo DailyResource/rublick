@@ -1,4 +1,4 @@
-/*package online.rubick.applications.conf;
+package online.rubick.applications.conf;
 
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -22,10 +22,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class RedisConfig extends CachingConfigurerSupport {
 
 
-    *//**
+    /**
      * 设置key、value的序列化
      * @return
-     *//*
+     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	@Bean
     public RedisTemplate<String, Object> redisTemplate( RedisConnectionFactory factory ) {
@@ -54,4 +54,3 @@ public class RedisConfig extends CachingConfigurerSupport {
         return cacheManager;
     }
 }
-*/

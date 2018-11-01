@@ -15,7 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @Date 2018年10月31日
  */
 @SpringBootApplication
-@ImportResource(locations = { "classpath:mykaptcha.xml" })
+@ImportResource(locations={"classpath:mykaptcha.xml"}) 
 @EnableAutoConfiguration
 @ComponentScan("online.rubick.applications")
 @EnableScheduling
