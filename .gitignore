@@ -27,5 +27,6 @@ target/
 .settings
 .classpath
 .project
+.springBeans
 log/
 temp/
