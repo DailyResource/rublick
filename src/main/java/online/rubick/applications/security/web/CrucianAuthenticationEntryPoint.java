@@ -27,8 +27,6 @@ import online.rubick.applications.util.WebUtil;
 
 /**
  * 改写 LoginUrlAuthenticationEntryPoint，增加对Ajax请求的处理;
- * @author Medeson.Zhang
- * @Date 2016年5月24日
  */
 public class CrucianAuthenticationEntryPoint implements AuthenticationEntryPoint,InitializingBean {
 

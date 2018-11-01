@@ -24,9 +24,6 @@ import io.swagger.annotations.ApiOperation;
 public class SessionController {
 
 	private Logger log = LoggerFactory.getLogger(SessionController.class);
-
-	@Value("${server.contextPath}")
-	private String contextPath;
 	
 	@ApiOperation(value = "Session失效", notes = "Session失效处理")
 	@RequestMapping(method = RequestMethod.GET, value = "/invalidSession")
@@ -40,7 +37,7 @@ public class SessionController {
 			}
 		} else {
 			try {
-				response.sendRedirect(contextPath+"/APIs/index.html");
+				response.sendRedirect("/index.html");
 			} catch (IOException e) {
 				log.error("跳转到登录页出错：", e);
 			}
