@@ -17,13 +17,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @ImportResource(locations = { "classpath:mykaptcha.xml" })
 @EnableAutoConfiguration
-@ComponentScan("com.letsiot.applications,com.letsiot.eam")
+@ComponentScan("online.rubick.applications")
 @EnableScheduling
 @EnableCaching
 public class RubickApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(RubickApplication.class, args);
 	}
-
 }
