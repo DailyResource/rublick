@@ -1,0 +1,23 @@
+<html>
+<meta http-equiv=Content-Type content="text/html;charset=utf-8">
+<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+<script type="text/javascript">
+	function getContextPath() {
+		var pathName = document.location.pathname;
+		var index = pathName.substr(1).indexOf("/");
+		var result = pathName.substr(0, index + 1);
+		var loginForm = document.getElementById("loginForm");
+		loginForm.action = result + "/login";
+	}
+</script>
+<body onload="getContextPath()">
+	<form id="loginForm" action="" method="post">
+		用户名：<input type="text" value="" name="loginName">
+		密码：<input type="text" value="" name="password">
+		<input class="verifycode" type="text" name="verifycode" maxlength="4" placeholder="验证码">
+		<img src="/eam/APIs/verifycode" alt="验证码" class="verifyimg" onclick="this.src='/eam/APIs/verifycode?d='+new Date()*1"/>
+		<!-- <img src="/iPark/APIs/valuableSeeding/getCode?valuableSeedingId=2586333296641024" alt="二维码" class="verifyimg" onclick="this.src='/iPark/APIs/valuableSeeding/getCode?d='+new Date()*1+'&valuableSeedingId=2586333296641024'"/>   -->
+		<input type="submit">
+	</form>
+</body>
+</html>

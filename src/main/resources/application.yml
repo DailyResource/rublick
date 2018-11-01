@@ -1,2 +1,27 @@
 server:
-  port\uff1a 8007
+  servletPath: /APIs/
+  contextPath: /rubick
+spring:
+  application: 
+    name: rubick
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/rubick?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  jackson:
+    time-zone: GMT+8
+  redis:
+    host: 10.0.2.212
+    port: 6379
+    database: 5
+    timeout: 1800000
+    pool:
+      maxIdle: 100
+      minIdle: 5
+      maxActive: 1000
+      maxWait: 3000
+logging:
+  file: /opt/logs/${spring.application.name}
+  level:
+    com.letsiot.eam: debug

@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.letsiot.applications.dao.sys.SysUserMapper">
+	<resultMap id="BaseResultMap" type="com.letsiot.applications.entity.sys.SysUser">
+		<id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="LOGIN_ID" property="loginId" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+		<result column="STATE" property="state" jdbcType="CHAR"
+			typeHandler="com.letsiot.applications.entity.enums.typehandler.UserStateHandler" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="LOGIN_TIME" property="loginTime" jdbcType="TIMESTAMP" />
+		<result column="LOGIN_IP" property="loginIp" jdbcType="VARCHAR" />
+		<result column="IS_LOGIN" property="islogin" jdbcType="CHAR"
+			typeHandler="com.letsiot.applications.entity.enums.typehandler.YesOrNoHandler" />
+		<result column="UPDATE_TIME" property="updateMyInfoTime"
+			jdbcType="TIMESTAMP" />
+		<result column="CHANGE_PASSWORD_TIME" property="changePasswordTime"
+			jdbcType="TIMESTAMP" />
+		<result column="PHOTO_PATH" property="photoPath" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="role" property="role" jdbcType="VARCHAR" />
+		<result column="companyName" property="companyName" jdbcType="VARCHAR" />
+		<result column="companyId" property="companyId" jdbcType="VARCHAR" />
+		<result column="status" property="userCompanyState" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		USER_ID, LOGIN_ID, NAME, MOBILE, EMAIL, PASSWORD,
+		STATE,
+		CREATE_DATE,
+		LOGIN_TIME,
+		LOGIN_IP,
+		IS_LOGIN,UPDATE_TIME,UPDATE_TIME,PHOTO_PATH,remark
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sys_user
+		where USER_ID = #{userId,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByLoginId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select su.*,sur.ROLE_ID role
+		from sys_user su
+		left join sys_user_role sur on sur.USER_ID = su.USER_ID 
+		where su.LOGIN_ID = #{loginId,jdbcType=VARCHAR} AND su.STATE !=
+		'9'
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		sys_user
+		where USER_ID = #{userId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.letsiot.applications.entity.sys.SysUser">
+		insert into sys_user (USER_ID,
+		LOGIN_ID, NAME,
+		MOBILE, EMAIL, PASSWORD,
+		STATE, CREATE_DATE,
+		LOGIN_TIME,
+		LOGIN_IP,
+		IS_LOGIN,UPDATE_TIME,CHANGE_PASSWORD_TIME,PHOTO_PATH,remark)
+		values
+		(#{userId,jdbcType=VARCHAR}, 
+		#{loginId,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{mobile,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+		#{state,jdbcType=CHAR,typeHandler=com.letsiot.applications.entity.enums.typehandler.UserStateHandler
+		},
+		#{createDate,jdbcType=DATE}, #{loginTime,jdbcType=TIMESTAMP},
+		#{loginIp,jdbcType=VARCHAR},
+		#{islogin,jdbcType=CHAR,typeHandler=com.letsiot.applications.entity.enums.typehandler.YesOrNoHandler},
+		#{updateMyInfoTime,jdbcType=TIMESTAMP},
+		#{changePasswordTime,jdbcType=TIMESTAMP},
+		#{photoPath,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}
+		)
+		
+	</insert>
+	<insert id="insertSelective" parameterType="com.letsiot.applications.entity.sys.SysUser">
+		insert into sys_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="loginId != null">
+				LOGIN_ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="mobile != null">
+				MOBILE,
+			</if>
+			<if test="email != null">
+				EMAIL,
+			</if>
+			<if test="password != null">
+				PASSWORD,
+			</if>
+			<if test="state != null">
+				STATE,
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE,
+			</if>
+			<if test="loginTime != null">
+				LOGIN_TIME,
+			</if>
+			<if test="loginIp != null">
+				LOGIN_IP,
+			</if>
+			<if test="islogin != null">
+				IS_LOGIN,
+			</if>
+			<if test="updateMyInfoTime != null">
+				UPDATE_TIME,
+			</if>
+			<if test="changePasswordTime != null">
+				CHANGEPASSWORD_TIME,
+			</if>
+			<if test="photoPath != null">
+				PHOTO_PATH,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="loginId != null">
+				#{loginId,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=CHAR,typeHandler=com.letsiot.applications.entity.enums.typehandler.UserStateHandler},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=DATE},
+			</if>
+			<if test="loginTime != null">
+				#{loginTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="loginIp != null">
+				#{loginIp,jdbcType=VARCHAR},
+			</if>
+			<if test="islogin != null">
+				#{islogin,jdbcType=CHAR,typeHandler=com.letsiot.applications.entity.enums.typehandler.YesOrNoHandler},
+			</if>
+			<if test="updateMyInfoTime != null">
+				#{updateMyInfoTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="changePasswordTime != null">
+				#{changePasswordTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="photoPath != null">
+				#{photoPath,jdbcType=VARCHAR},
+			</if>
+			<if test="projectName != null">
+				#{projectName,jdbcType=VARCHAR},
+			</if>
+			<if test="orderBy != null">
+				#{orderBy,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.letsiot.applications.entity.sys.SysUser">
+		update sys_user
+		<set>
+			<if test="loginId != null">
+				LOGIN_ID = #{loginId,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				MOBILE = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				EMAIL = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				PASSWORD = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				STATE =
+				#{state,jdbcType=CHAR,typeHandler=com.letsiot.applications.entity.enums.typehandler.UserStateHandler},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate,jdbcType=DATE},
+			</if>
+			<if test="loginTime != null">
+				LOGIN_TIME = #{loginTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="loginIp != null">
+				LOGIN_IP = #{loginIp,jdbcType=VARCHAR},
+			</if>
+			<if test="islogin != null">
+				IS_LOGIN =
+				#{islogin,jdbcType=CHAR,typeHandler=com.letsiot.applications.entity.enums.typehandler.YesOrNoHandler},
+			</if>
+			<if test=" updateMyInfoTime != null">
+				UPDATE_TIME =
+				#{updateMyInfoTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test=" changePasswordTime != null">
+				CHANGE_PASSWORD_TIME =
+				#{changePasswordTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test=" photoPath != null">
+				PHOTO_PATH = #{photoPath,jdbcType=VARCHAR},
+			</if>
+			<if test=" remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where USER_ID = #{userId,jdbcType=VARCHAR}
+	</update>
+	<select id="getUsersByIds" resultMap="BaseResultMap"
+		parameterType="java.util.ArrayList">
+		select
+		<include refid="Base_Column_List" />
+		from sys_user U
+		where STATE != '9'
+		<if test="ids !=null">
+			and U.user_id in
+			<foreach item="userId" index="index" collection="ids" open="("
+				separator="," close=")">
+				#{userId}
+			</foreach>
+		</if>
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_user
+		where state != '9'
+	</select>
+	<select id="selectRoleByUserId" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		SELECT
+		sr.role_name
+		FROM
+		( SELECT su.*, sur.role_id
+		rid FROM
+		sys_user su,
+		sys_user_role sur
+		WHERE su.USER_ID = sur.user_id )
+		ur,
+		sys_role sr
+		WHERE
+		sr.id = ur.rid
+		<if test="userId != null">
+			and ur.user_id = #{userId,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<update id="updatePasswordByLoginId" parameterType="java.lang.String">
+		update
+		sys_user set password=#{password,jdbcType=VARCHAR} where
+		LOGIN_ID=#{loginId,jdbcType=VARCHAR}
+	</update>
+	<select id="getUserByMoble" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_user
+		where MOBILE = #{mobile,jdbcType=VARCHAR} AND STATE !=
+		'9'
+	</select>
+	<select id="getFixUserByMoble" resultMap="BaseResultMap">
+		select * from sys_user u left join sys_user_role r on u.USER_ID = r.USER_ID
+		where u.MOBILE = #{mobile,jdbcType=VARCHAR} AND u.STATE != '9' 
+	</select>
+	<update id="updateClientId" parameterType="com.letsiot.applications.entity.sys.SysUser">
+		update sys_user
+		<set>
+			<if test="clientId != null">
+				CLIENT_ID = #{clientId,jdbcType=VARCHAR},
+			</if>
+			<if test="appType != null">
+				APP_TYPE = #{appType,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where USER_ID = #{userId,jdbcType=VARCHAR}
+	</update>
+	<update id="deleteUserById" parameterType="java.lang.String">
+		update sys_user set state='9' where user_id=#{userId,jdbcType=VARCHAR}
+	</update>
+	<select id="getAllPage" parameterType="java.lang.String" resultMap="BaseResultMap">
+	SELECT
+		u.*,sc.company_name companyName,suc.status status
+	FROM
+		sys_user u inner join sys_user_role sur on sur.user_id = u.user_id left join sys_user_company suc 
+		on u.USER_ID = suc.USER_ID 
+		left join sys_company sc 
+		on sc.company_id = suc.company_id
+	WHERE u.STATE !=  '9' and sur.role_id != '1'
+		<if test="keyword != null and keyword != ''">
+		AND (u.NAME like "%"#{keyword,jdbcType=VARCHAR}"%" or u.LOGIN_ID like "%"#{keyword,jdbcType=VARCHAR}"%")
+		</if>
+	ORDER BY u.CREATE_DATE desc 
+	</select>
+	<select id="findByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT
+		u.*,
+		sur.ROLE_ID role,
+		suc.company_id companyId 
+		FROM
+		sys_user u 
+		left join 
+		sys_user_role sur on u.USER_ID = sur.USER_ID 
+		left join 
+		sys_user_company suc on suc.USER_ID = u.USER_ID
+		WHERE
+		1 = 1
+		<if test="userId != null and userId != ''">
+		AND sur.USER_ID = #{userId,jdbcType=VARCHAR}
+		</if>
+		AND u.STATE != '9'
+	</select>
+	<select id="findByLoginId" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select * from sys_user where login_id = #{loginId} AND STATE != '9'
+	</select>
+</mapper>
