@@ -25,8 +25,6 @@ import org.openxmlformats.schemas.drawingml.x2006.spreadsheetDrawing.CTMarker;
 
 /**
  * 读取excel单元格内容
- * 
- * @author liyonggang
  *
  */
 public class ReadExceleUtils {

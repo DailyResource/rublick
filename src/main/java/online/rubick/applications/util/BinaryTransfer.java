@@ -3,8 +3,6 @@ package online.rubick.applications.util;
 /**
  * 数据转换工具;
  * 物联网设备上报的数据一般都是16进制数据，需要转换成标准的可识别数据;
- * @author 张峻峰
- * @Date 2017年10月27日
  */
 public class BinaryTransfer {
 	

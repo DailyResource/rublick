@@ -17,9 +17,6 @@ import online.rubick.applications.security.web.SessionRegistryClass;
 
 /**
  * Spring Security 配置类
- * 
- * @author 张峻峰
- * @Date 2017年11月14日
  */
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

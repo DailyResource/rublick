@@ -4,11 +4,6 @@ import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.Collection;
 
-/**
- * 
- * @author liyonggang
- *
- */
 public class ToolMethod {
 
 	/**

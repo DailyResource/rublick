@@ -1,10 +1,3 @@
-/**   
- * @Title: WebUtil.java 
- * @Package com.mvc.util 
- * @Description: TODO(用一句话描述该文件做什么) 
- * @author smw  
- * @date 2017年6月28日 上午10:17:42 
- */
 package online.rubick.applications.util;
 
 import java.io.IOException;
@@ -16,11 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * @author smw
- * @ClassName: WebUtil
- * @Description: TODO
- * @author smw
- * 
+ * @ClassName: WebUtil 
  */
 public class WebUtil {
 

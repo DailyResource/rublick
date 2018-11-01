@@ -9,12 +9,7 @@ import java.util.List;
 import org.springframework.util.StringUtils;
 
 /**
- *   
- * 
  * @Description:日期工具类
- * @author Jack 
- * @date 2017年9月2日 下午2:33:46
- * @version V1.0  
  */
 public class DateHelper {
 

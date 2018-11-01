@@ -25,8 +25,6 @@ import online.rubick.applications.util.WebUtil;
 
 /**
  * 自定义登录认证过滤器;
- * @author Medeson.Zhang
- * @Date 2016年5月17日
  */
 public class CrucianAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 

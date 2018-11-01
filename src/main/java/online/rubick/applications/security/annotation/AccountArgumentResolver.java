@@ -16,8 +16,6 @@ import online.rubick.applications.security.authc.Account;
 /**
  * Security 账户对象解析，适用于RestController
  * 
- * @author 张峻峰
- * @Date 2017年11月14日
  */
 @Component
 public class AccountArgumentResolver implements HandlerMethodArgumentResolver {

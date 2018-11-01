@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * @ClassName: DateUtil
  * @Description: 日期操作工具类
- * @version 1.0 创建时间: 2017年8月24日 下午2:47:28
  *
  */
 public class DateUtil {

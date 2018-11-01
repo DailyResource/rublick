@@ -2,8 +2,6 @@ package online.rubick.applications.util;
 
 /**
  * 分页代理.不同的数据库需要做单独实现;
- * @author Medeson.Zhang
- * @Date 2017年10月19日
  */
 public interface Dialect {
 	

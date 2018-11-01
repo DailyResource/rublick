@@ -2,8 +2,6 @@ package online.rubick.applications.util;
 
 /**
  * MySQL 分页实现
- * 
- * @author Medeson.Zhang
  * @Date 2017年10月19日
  */
 public class MySQLDialect implements Dialect {

@@ -8,8 +8,6 @@ import org.springframework.security.core.SpringSecurityCoreVersion;
 
 /**
  * 参考UsernamePasswordAuthenticationToken
- * @author Medeson.Zhang
- * @Date 2016年5月17日
  */
 public class CrucianAuthenticationToken extends AbstractAuthenticationToken {
 

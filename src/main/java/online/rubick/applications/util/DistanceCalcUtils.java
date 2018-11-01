@@ -1,11 +1,5 @@
 package online.rubick.applications.util;
 
-/**
- * 
- * @author lyg
- *
- * 2018年2月11日
- */
 public class DistanceCalcUtils {
 
 	private static final double EARTH_RADIUS = 6378137; //赤道半径（单位m）

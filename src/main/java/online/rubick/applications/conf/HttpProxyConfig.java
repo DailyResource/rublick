@@ -3,9 +3,6 @@ package online.rubick.applications.conf;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * Created by dengsong@ztecs.com.cn on 2017/5/23.
- */
 @Configuration
 @ConfigurationProperties("http.proxy")
 public class HttpProxyConfig {

@@ -25,9 +25,6 @@ import online.rubick.applications.util.IdUtil;
 
 /**
  * 系统用户相关服务
- * 
- * @author 张峻峰
- * @Date 2017年11月14日
  */
 @Service
 public class SysUserService {
