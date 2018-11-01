@@ -32,8 +32,8 @@ public class SwaggerConfig {
 	}
 	
     private ApiInfo createApiInfo() {
-        return new ApiInfoBuilder().title("今创.")
-        		.contact(new Contact("Lets Tech","","")).build();
+        return new ApiInfoBuilder().title("rubick.")
+        		.contact(new Contact("接口地址","","")).build();
     }
 
 }

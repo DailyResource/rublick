@@ -44,10 +44,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authenticationProvider(provider);
 		http.httpBasic().authenticationEntryPoint(createEntryPoint());
 		http.addFilterBefore(getFilter(), UsernamePasswordAuthenticationFilter.class);
-		http.sessionManagement().invalidSessionUrl("/APIs/invalidSession");
+		http.sessionManagement().invalidSessionUrl("/invalidSession");
 		http.csrf().disable();
 		// 一个用户只能有一个session
-		http.sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry).expiredUrl("/APIs/invalidSession");
+		http.sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry).expiredUrl("/invalidSession");
 
 		http.logout().logoutUrl("/logout").logoutSuccessHandler(logoutHandler).invalidateHttpSession(true).deleteCookies("JSESSIONID");
 		
@@ -57,13 +57,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		/**
 		 * 过滤掉swagger需要的内容
 		 */
-		registry.antMatchers("/APIs/swagger-ui.html",
-		        "/APIs/v2/api-docs",
-		        "/APIs/swagger-resources/**",
-				"/APIs/userOperation/resetPasswords",
-				"/APIs/verifycode").permitAll();
+		registry.antMatchers("/swagger-ui.html",
+		        "/v2/api-docs",
+		        "/swagger-resources/**",
+				"/userOperation/resetPasswords",
+				"/verifycode").permitAll();
 
-		registry.anyRequest().authenticated().and().formLogin().loginPage("/APIs/login.html").permitAll().and().logout()
+		registry.anyRequest().authenticated().and().formLogin().loginPage("/login.html").permitAll().and().logout()
 				.permitAll();
 	}
 
@@ -71,14 +71,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// 这里new 过滤器的时候需要sessionRegistry
 		CrucianAuthenticationFilter filter = new CrucianAuthenticationFilter(sessionRegistry);
 		filter.setAuthenticationManager(authManager);
-		authSuccessHandler.setDefaultTargetUrl("/APIs/index.html");
+		authSuccessHandler.setDefaultTargetUrl("/index.html");
 		filter.setAuthenticationSuccessHandler(authSuccessHandler);
 		return filter;
 	}
 
 	// Security 入口
 	public CrucianAuthenticationEntryPoint createEntryPoint() {
-		return new CrucianAuthenticationEntryPoint("/APIs/login.html");
+		return new CrucianAuthenticationEntryPoint("/login.html");
 	}
 
 }
