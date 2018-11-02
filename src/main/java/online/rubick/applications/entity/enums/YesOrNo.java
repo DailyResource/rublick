@@ -2,8 +2,6 @@ package online.rubick.applications.entity.enums;
 
 /**
  * 可用枚举类;
- * @author Medeson.Zhang
- * @Date 2017年10月18日
  */
 public enum YesOrNo implements EnumUnit<YesOrNo> {
 	YES("Y","是"),

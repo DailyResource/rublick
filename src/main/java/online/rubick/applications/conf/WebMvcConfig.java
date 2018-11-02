@@ -16,9 +16,6 @@ import online.rubick.applications.security.annotation.AccountArgumentResolver;
 
 /**
  * 配置 Spring MVC 扩展插件
- * 
- * @author 张峻峰
- * @Date 2017年11月15日
  */
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {

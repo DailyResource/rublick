@@ -4,8 +4,6 @@ import org.springframework.util.StringUtils;
 
 /**
  * 处理状态枚举类;
- * @author Medeson.Zhang
- * @Date 2017年10月18日
  */
 public enum UserState implements EnumUnit<UserState> {
 	INIT("0","初始化"),

@@ -26,7 +26,6 @@ import online.rubick.applications.vo.sys.UserVO;
  *
  * 用法，如果有多个权限用,分割 @Permission(permission="project_add,project_delete")
  * 
- * @author 林鹏
  */
 @Component
 @Aspect

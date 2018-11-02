@@ -16,9 +16,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 用户对象
- * 
- * @author 张峻峰
- * @Date 2017年10月21日
  */
 @ApiModel(value = "UserVO", description = "登录用户信息")
 public class UserVO implements Account {

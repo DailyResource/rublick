@@ -6,8 +6,6 @@ import online.rubick.applications.entity.enums.UserState;
 
 /**
  * 为适配MyBatis;定向Useable枚举类的读取;
- * @author Medeson.Zhang
- * @Date 2017年10月18日
  */
 @MappedTypes(UserState.class)
 public class UserStateHandler extends EnumCodeTypeHandler<UserState>{

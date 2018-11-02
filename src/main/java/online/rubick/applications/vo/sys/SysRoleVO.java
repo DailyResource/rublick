@@ -10,10 +10,6 @@ import io.swagger.annotations.ApiModelProperty;
 import online.rubick.applications.vaild.InsertVaild;
 import online.rubick.applications.vaild.UpdateVaild;
 
-/**
- * @author admin
- *
- */
 @ApiModel(description = "角色管理参数列表")
 public class SysRoleVO  implements Serializable{
 	private static final long serialVersionUID = 1L;

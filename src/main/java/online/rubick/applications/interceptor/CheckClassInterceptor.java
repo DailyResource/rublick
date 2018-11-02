@@ -16,8 +16,7 @@ import online.rubick.applications.security.authority.Permission;
 import online.rubick.applications.vo.sys.UserVO;
 
 /**
- * 
- * @author 林鹏 类权限拦截器，根据定义在类上面的权限标签控制类的权限
+ *  类权限拦截器，根据定义在类上面的权限标签控制类的权限
  */
 public class CheckClassInterceptor implements HandlerInterceptor {
 

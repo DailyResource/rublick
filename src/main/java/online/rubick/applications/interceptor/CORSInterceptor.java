@@ -8,8 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * 
- * @author 林鹏 CORS session失效时跨域问题
+ *  CORS session失效时跨域问题
  */
 public class CORSInterceptor implements HandlerInterceptor {
 

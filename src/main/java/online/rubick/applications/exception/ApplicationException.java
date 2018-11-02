@@ -4,11 +4,6 @@ import org.springframework.core.NestedRuntimeException;
 
 import online.rubick.applications.entity.enums.EnumUnit;
 
-/**
- * 
- * @author 张峻峰
- * @Date 2017年11月3日
- */
 public class ApplicationException extends NestedRuntimeException implements ExceptionInfoGetter {
 
 	private static final long serialVersionUID = 1L;

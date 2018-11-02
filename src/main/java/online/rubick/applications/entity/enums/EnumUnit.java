@@ -2,8 +2,6 @@ package online.rubick.applications.entity.enums;
 
 /**
  * Enum 接口,标准化系统内所有Enum的读取方式;
- * @author Medeson.Zhang
- * @Date 2017年10月18日
  */
 public interface EnumUnit<T> {
     /**

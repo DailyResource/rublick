@@ -26,8 +26,6 @@ import org.springframework.data.domain.Sort;
 /**
  * 分页插件；
  * 注意：这个分页插件现在支持MySQL语法，如果想支持其他数据库语法，修改两个地方：一个是构造函数，改成可适配的，另外是增加一个对应目标数据库的Dialect实现类；
- * @author Medeson.Zhang
- * @Date 2017年10月19日
  */
 @Intercepts({ 
 	@Signature(type = Executor.class, method = "query", args = {
