@@ -46,7 +46,7 @@ public class ReadExceleUtils {
 		case NUMERIC:
 			if (HSSFDateUtil.isCellDateFormatted(cell)) {
 				Date date = cell.getDateCellValue();
-				val = DateUtil.dateToStrLong(date);
+				val = DateUtil.formatDate(date);
 			} else {
 				double value = cell.getNumericCellValue();
 				val = String.valueOf(value);
