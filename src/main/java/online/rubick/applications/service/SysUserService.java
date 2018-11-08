@@ -22,6 +22,7 @@ import online.rubick.applications.entity.sys.SysUser;
 import online.rubick.applications.entity.sys.SysUserLog;
 import online.rubick.applications.entity.sys.SysUserRole;
 import online.rubick.applications.util.IdUtil;
+import online.rubick.applications.vo.sys.UserVO;
 
 /**
  * 系统用户相关服务
@@ -96,6 +97,24 @@ public class SysUserService {
 		return true;
 	}
 
+	public void updateUser(UserVO vo) {
+		SysUser user = userDao.selectByPrimaryKey(vo.getUserId());
+		if (user != null) {
+			user.setCompanyId(vo.getCompanyId());
+			user.setLoginId(vo.getLoginId());
+			user.setName(vo.getUserName());
+			user.setMobile(vo.getMobile());
+			user.setUpdateMyInfoTime(Calendar.getInstance().getTime());
+			userDao.updateByPrimaryKeySelective(user);
+			List<SysUserRole> surList = sysUserRoleService.getByUserId(vo.getUserId());
+			if (surList.size() > 0) {
+				SysUserRole sysUserRole = surList.get(0);
+				sysUserRole.setRoleId(vo.getRole());
+				sysUserRoleService.update(sysUserRole);
+			}
+		}
+	}
+
 	public SysUser selectByPrimaryKey(String userId) {
 		return userDao.selectByPrimaryKey(userId);
 	}
@@ -150,4 +169,7 @@ public class SysUserService {
 		return userDao.findByLoginId(loginId);
 	}
 
+	public List<SysUser> findByMobile(String mobile) {
+		return userDao.findByMobile(mobile);
+	}
 }

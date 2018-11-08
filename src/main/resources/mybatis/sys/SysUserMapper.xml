@@ -45,8 +45,10 @@
 		parameterType="java.lang.String">
 		select su.*,sur.ROLE_ID role
 		from sys_user su
-		left join sys_user_role sur on sur.USER_ID = su.USER_ID 
-		where su.LOGIN_ID = #{loginId,jdbcType=VARCHAR} AND su.STATE !=
+		left join
+		sys_user_role sur on sur.USER_ID = su.USER_ID
+		where su.LOGIN_ID =
+		#{loginId,jdbcType=VARCHAR} AND su.STATE !=
 		'9'
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
@@ -63,7 +65,7 @@
 		LOGIN_IP,
 		IS_LOGIN,UPDATE_TIME,CHANGE_PASSWORD_TIME,PHOTO_PATH,remark)
 		values
-		(#{userId,jdbcType=VARCHAR}, 
+		(#{userId,jdbcType=VARCHAR},
 		#{loginId,jdbcType=VARCHAR},
 		#{name,jdbcType=VARCHAR},
 		#{mobile,jdbcType=VARCHAR},
@@ -78,7 +80,7 @@
 		#{photoPath,jdbcType=VARCHAR},
 		#{remark,jdbcType=VARCHAR}
 		)
-		
+
 	</insert>
 	<insert id="insertSelective" parameterType="online.rubick.applications.entity.sys.SysUser">
 		insert into sys_user
@@ -286,8 +288,10 @@
 		'9'
 	</select>
 	<select id="getFixUserByMoble" resultMap="BaseResultMap">
-		select * from sys_user u left join sys_user_role r on u.USER_ID = r.USER_ID
-		where u.MOBILE = #{mobile,jdbcType=VARCHAR} AND u.STATE != '9' 
+		select * from sys_user
+		u left join sys_user_role r on u.USER_ID = r.USER_ID
+		where u.MOBILE =
+		#{mobile,jdbcType=VARCHAR} AND u.STATE != '9'
 	</select>
 	<update id="updateClientId" parameterType="online.rubick.applications.entity.sys.SysUser">
 		update sys_user
@@ -302,41 +306,48 @@
 		where USER_ID = #{userId,jdbcType=VARCHAR}
 	</update>
 	<update id="deleteUserById" parameterType="java.lang.String">
-		update sys_user set state='9' where user_id=#{userId,jdbcType=VARCHAR}
+		update sys_user set
+		state='9' where user_id=#{userId,jdbcType=VARCHAR}
 	</update>
-	<select id="getAllPage" parameterType="java.lang.String" resultMap="BaseResultMap">
-	SELECT
-		u.*,sc.company_name companyName,suc.status status
-	FROM
-		sys_user u inner join sys_user_role sur on sur.user_id = u.user_id left join sys_user_company suc 
-		on u.USER_ID = suc.USER_ID 
-		left join sys_company sc 
-		on sc.company_id = suc.company_id
-	WHERE u.STATE !=  '9' and sur.role_id != '1'
+	<select id="getAllPage" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT
+		u.*
+		FROM
+		sys_user u
+		inner join sys_user_role sur on sur.user_id =
+		u.user_id
+		WHERE u.STATE != '9' and sur.role_id != '1'
 		<if test="keyword != null and keyword != ''">
-		AND (u.NAME like "%"#{keyword,jdbcType=VARCHAR}"%" or u.LOGIN_ID like "%"#{keyword,jdbcType=VARCHAR}"%")
+			AND (u.NAME like "%"#{keyword,jdbcType=VARCHAR}"%" or
+			u.LOGIN_ID like
+			"%"#{keyword,jdbcType=VARCHAR}"%")
 		</if>
-	ORDER BY u.CREATE_DATE desc 
+		ORDER BY u.CREATE_DATE desc
 	</select>
-	<select id="findByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+	<select id="findByUserId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
 		SELECT
 		u.*,
-		sur.ROLE_ID role,
-		suc.company_id companyId 
+		sur.ROLE_ID role
 		FROM
-		sys_user u 
-		left join 
-		sys_user_role sur on u.USER_ID = sur.USER_ID 
-		left join 
-		sys_user_company suc on suc.USER_ID = u.USER_ID
-		WHERE
-		1 = 1
+		sys_user u
+		left join
+		sys_user_role sur on
+		u.USER_ID = sur.USER_ID
+		WHERE 1 = 1
 		<if test="userId != null and userId != ''">
-		AND sur.USER_ID = #{userId,jdbcType=VARCHAR}
+			AND sur.USER_ID = #{userId,jdbcType=VARCHAR}
 		</if>
 		AND u.STATE != '9'
 	</select>
-	<select id="findByLoginId" parameterType="java.lang.String" resultMap="BaseResultMap">
-		select * from sys_user where login_id = #{loginId} AND STATE != '9'
+	<select id="findByLoginId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select * from sys_user where login_id = #{loginId} AND STATE
+		!= '9'
+	</select>
+	<select id="findByMobile" resultMap="BaseResultMap">
+		select * from sys_user where
+		MOBILE = #{mobile,jdbcType=VARCHAR} and STATE != '9'
 	</select>
 </mapper>

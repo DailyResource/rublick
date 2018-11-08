@@ -1,225 +1,256 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="online.rubick.applications.dao.sys.SysMessageMapper">
-	<resultMap id="BaseResultMap" type="online.rubick.applications.entity.sys.SysMessage" >
-    <id column="ID" property="id" jdbcType="VARCHAR" />
-    <result column="CONTACT_USER" property="contactUser" jdbcType="VARCHAR" />
-    <result column="CONTACT_TEL" property="contactTel" jdbcType="VARCHAR" />
-    <result column="TITLE" property="title" jdbcType="VARCHAR" />
-    <result column="SEND_TIME" property="sendTime" jdbcType="TIMESTAMP" />
-    <result column="SEND_NUM" property="sendNum" jdbcType="INTEGER" />
-    <result column="RESEND_NUM" property="resendNum" jdbcType="INTEGER" />
-    <result column="STATUS" property="status" jdbcType="VARCHAR" />
-    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="MESSAGE_TYPE" property="messageType" jdbcType="VARCHAR" />
-    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
-    <result column="DEVICE_ID" property="deviceId" jdbcType="VARCHAR" />
-    <result column="READ_FLAG" property="readFlag" jdbcType="VARCHAR" />
-    <result column="WARN_TYPE" property="warnType" jdbcType="VARCHAR" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    ID, CONTACT_USER, CONTACT_TEL, TITLE, SEND_TIME, SEND_NUM, RESEND_NUM, STATUS, CREATE_TIME, 
-    MESSAGE_TYPE, CONTENT, DEVICE_ID, READ_FLAG, WARN_TYPE
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from sys_message
-    where ID = #{id,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from sys_message
-    where ID = #{id,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="online.rubick.applications.entity.sys.SysMessage" >
-    insert into sys_message (ID, CONTACT_USER, CONTACT_TEL, 
-      TITLE, SEND_TIME, SEND_NUM, 
-      RESEND_NUM, STATUS, CREATE_TIME, 
-      MESSAGE_TYPE, CONTENT, DEVICE_ID, 
-      READ_FLAG, WARN_TYPE)
-    values (#{id,jdbcType=VARCHAR}, #{contactUser,jdbcType=VARCHAR}, #{contactTel,jdbcType=VARCHAR}, 
-      #{title,jdbcType=VARCHAR}, #{sendTime,jdbcType=TIMESTAMP}, #{sendNum,jdbcType=INTEGER}, 
-      #{resendNum,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{messageType,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, 
-      #{readFlag,jdbcType=VARCHAR}, #{warnType,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="online.rubick.applications.entity.sys.SysMessage" >
-    insert into sys_message
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        ID,
-      </if>
-      <if test="contactUser != null" >
-        CONTACT_USER,
-      </if>
-      <if test="contactTel != null" >
-        CONTACT_TEL,
-      </if>
-      <if test="title != null" >
-        TITLE,
-      </if>
-      <if test="sendTime != null" >
-        SEND_TIME,
-      </if>
-      <if test="sendNum != null" >
-        SEND_NUM,
-      </if>
-      <if test="resendNum != null" >
-        RESEND_NUM,
-      </if>
-      <if test="status != null" >
-        STATUS,
-      </if>
-      <if test="createTime != null" >
-        CREATE_TIME,
-      </if>
-      <if test="messageType != null" >
-        MESSAGE_TYPE,
-      </if>
-      <if test="content != null" >
-        CONTENT,
-      </if>
-      <if test="deviceId != null" >
-        DEVICE_ID,
-      </if>
-      <if test="readFlag != null" >
-        READ_FLAG,
-      </if>
-      <if test="warnType != null" >
-        WARN_TYPE,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="contactUser != null" >
-        #{contactUser,jdbcType=VARCHAR},
-      </if>
-      <if test="contactTel != null" >
-        #{contactTel,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="sendTime != null" >
-        #{sendTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="sendNum != null" >
-        #{sendNum,jdbcType=INTEGER},
-      </if>
-      <if test="resendNum != null" >
-        #{resendNum,jdbcType=INTEGER},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="messageType != null" >
-        #{messageType,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null" >
-        #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="deviceId != null" >
-        #{deviceId,jdbcType=VARCHAR},
-      </if>
-      <if test="readFlag != null" >
-        #{readFlag,jdbcType=VARCHAR},
-      </if>
-      <if test="warnType != null" >
-        #{warnType,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="online.rubick.applications.entity.sys.SysMessage" >
-    update sys_message
-    <set >
-      <if test="contactUser != null" >
-        CONTACT_USER = #{contactUser,jdbcType=VARCHAR},
-      </if>
-      <if test="contactTel != null" >
-        CONTACT_TEL = #{contactTel,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null" >
-        TITLE = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="sendTime != null" >
-        SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="sendNum != null" >
-        SEND_NUM = #{sendNum,jdbcType=INTEGER},
-      </if>
-      <if test="resendNum != null" >
-        RESEND_NUM = #{resendNum,jdbcType=INTEGER},
-      </if>
-      <if test="status != null" >
-        STATUS = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="messageType != null" >
-        MESSAGE_TYPE = #{messageType,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null" >
-        CONTENT = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="deviceId != null" >
-        DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
-      </if>
-      <if test="readFlag != null" >
-        READ_FLAG = #{readFlag,jdbcType=VARCHAR},
-      </if>
-      <if test="warnType != null" >
-        WARN_TYPE = #{warnType,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where ID = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="online.rubick.applications.entity.sys.SysMessage" >
-    update sys_message
-    set CONTACT_USER = #{contactUser,jdbcType=VARCHAR},
-      CONTACT_TEL = #{contactTel,jdbcType=VARCHAR},
-      TITLE = #{title,jdbcType=VARCHAR},
-      SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
-      SEND_NUM = #{sendNum,jdbcType=INTEGER},
-      RESEND_NUM = #{resendNum,jdbcType=INTEGER},
-      STATUS = #{status,jdbcType=VARCHAR},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      MESSAGE_TYPE = #{messageType,jdbcType=VARCHAR},
-      CONTENT = #{content,jdbcType=VARCHAR},
-      DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
-      READ_FLAG = #{readFlag,jdbcType=VARCHAR},
-      WARN_TYPE = #{warnType,jdbcType=VARCHAR}
-    where ID = #{id,jdbcType=VARCHAR}
-  </update>
+<mapper namespace="com.letsiot.applications.dao.sys.SysMessageMapper">
+	<resultMap id="BaseResultMap"
+		type="com.letsiot.applications.entity.sys.SysMessage">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="CONTACT_USER" property="contactUser" jdbcType="VARCHAR" />
+		<result column="CONTACT_TEL" property="contactTel" jdbcType="VARCHAR" />
+		<result column="TITLE" property="title" jdbcType="VARCHAR" />
+		<result column="SEND_TIME" property="sendTime" jdbcType="TIMESTAMP" />
+		<result column="SEND_NUM" property="sendNum" jdbcType="INTEGER" />
+		<result column="RESEND_NUM" property="resendNum" jdbcType="INTEGER" />
+		<result column="STATUS" property="status" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="MESSAGE_TYPE" property="messageType" jdbcType="VARCHAR" />
+		<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+		<result column="DEVICE_ID" property="deviceId" jdbcType="VARCHAR" />
+		<result column="READ_FLAG" property="readFlag" jdbcType="VARCHAR" />
+		<result column="WARN_TYPE" property="warnType" jdbcType="VARCHAR" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, CONTACT_USER, CONTACT_TEL, TITLE, SEND_TIME, SEND_NUM,
+		RESEND_NUM,
+		STATUS, CREATE_TIME,
+		MESSAGE_TYPE, CONTENT, DEVICE_ID,
+		READ_FLAG, WARN_TYPE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sys_message
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		sys_message
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.letsiot.applications.entity.sys.SysMessage">
+		insert into sys_message (ID,
+		CONTACT_USER, CONTACT_TEL,
+		TITLE, SEND_TIME, SEND_NUM,
+		RESEND_NUM,
+		STATUS, CREATE_TIME,
+		MESSAGE_TYPE, CONTENT, DEVICE_ID,
+		READ_FLAG,
+		WARN_TYPE)
+		values (#{id,jdbcType=VARCHAR},
+		#{contactUser,jdbcType=VARCHAR},
+		#{contactTel,jdbcType=VARCHAR},
+		#{title,jdbcType=VARCHAR}, #{sendTime,jdbcType=TIMESTAMP},
+		#{sendNum,jdbcType=INTEGER},
+		#{resendNum,jdbcType=INTEGER},
+		#{status,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{messageType,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
+		#{deviceId,jdbcType=VARCHAR},
+		#{readFlag,jdbcType=VARCHAR},
+		#{warnType,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.letsiot.applications.entity.sys.SysMessage">
+		insert into sys_message
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="contactUser != null">
+				CONTACT_USER,
+			</if>
+			<if test="contactTel != null">
+				CONTACT_TEL,
+			</if>
+			<if test="title != null">
+				TITLE,
+			</if>
+			<if test="sendTime != null">
+				SEND_TIME,
+			</if>
+			<if test="sendNum != null">
+				SEND_NUM,
+			</if>
+			<if test="resendNum != null">
+				RESEND_NUM,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="messageType != null">
+				MESSAGE_TYPE,
+			</if>
+			<if test="content != null">
+				CONTENT,
+			</if>
+			<if test="deviceId != null">
+				DEVICE_ID,
+			</if>
+			<if test="readFlag != null">
+				READ_FLAG,
+			</if>
+			<if test="warnType != null">
+				WARN_TYPE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="contactUser != null">
+				#{contactUser,jdbcType=VARCHAR},
+			</if>
+			<if test="contactTel != null">
+				#{contactTel,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="sendTime != null">
+				#{sendTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sendNum != null">
+				#{sendNum,jdbcType=INTEGER},
+			</if>
+			<if test="resendNum != null">
+				#{resendNum,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="messageType != null">
+				#{messageType,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceId != null">
+				#{deviceId,jdbcType=VARCHAR},
+			</if>
+			<if test="readFlag != null">
+				#{readFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="warnType != null">
+				#{warnType,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.letsiot.applications.entity.sys.SysMessage">
+		update sys_message
+		<set>
+			<if test="contactUser != null">
+				CONTACT_USER = #{contactUser,jdbcType=VARCHAR},
+			</if>
+			<if test="contactTel != null">
+				CONTACT_TEL = #{contactTel,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				TITLE = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="sendTime != null">
+				SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sendNum != null">
+				SEND_NUM = #{sendNum,jdbcType=INTEGER},
+			</if>
+			<if test="resendNum != null">
+				RESEND_NUM = #{resendNum,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="messageType != null">
+				MESSAGE_TYPE = #{messageType,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				CONTENT = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceId != null">
+				DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+			</if>
+			<if test="readFlag != null">
+				READ_FLAG = #{readFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="warnType != null">
+				WARN_TYPE = #{warnType,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.letsiot.applications.entity.sys.SysMessage">
+		update sys_message
+		set CONTACT_USER = #{contactUser,jdbcType=VARCHAR},
+		CONTACT_TEL =
+		#{contactTel,jdbcType=VARCHAR},
+		TITLE = #{title,jdbcType=VARCHAR},
+		SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
+		SEND_NUM =
+		#{sendNum,jdbcType=INTEGER},
+		RESEND_NUM =
+		#{resendNum,jdbcType=INTEGER},
+		STATUS = #{status,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		MESSAGE_TYPE =
+		#{messageType,jdbcType=VARCHAR},
+		CONTENT = #{content,jdbcType=VARCHAR},
+		DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+		READ_FLAG =
+		#{readFlag,jdbcType=VARCHAR},
+		WARN_TYPE = #{warnType,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
 	<select id="findMessagePage" resultMap="BaseResultMap">
-		select m.*,u.NAME username   from sys_message m left join sys_user u on u.USER_ID = m.CONTACT_USER
-		where m.MESSAGE_TYPE = #{messageType,jdbcType=VARCHAR} 
+		select m.*,u.NAME username from sys_message m left join sys_user u on
+		u.USER_ID = m.CONTACT_USER
+		where m.MESSAGE_TYPE =
+		#{messageType,jdbcType=VARCHAR}
 		<if test="keyword != null and keyword != '' ">
-			and (m.TITLE like "%"#{keyword,jdbcType=VARCHAR}"%" or m.CONTENT like "%"#{keyword,jdbcType=VARCHAR}"%")
+			and (m.TITLE like "%"#{keyword,jdbcType=VARCHAR}"%" or
+			m.CONTENT like "%"#{keyword,jdbcType=VARCHAR}"%")
 		</if>
 	</select>
-	
+
 	<select id="getAll" resultMap="BaseResultMap">
-		select * from sys_message 
+		select * from sys_message
 	</select>
-	
+
 	<select id="findByUserAndType" resultMap="BaseResultMap">
-		select m.ID,m.CREATE_TIME ,m.TITLE,m.CONTENT,u.NAME username ,smr.status READ_FLAG
-		from sys_message m left join sys_user u on u.USER_ID = m.CONTACT_USER 
-		inner join sys_message_receiver smr on smr.message_id = m.ID
-		where  
-		m.MESSAGE_TYPE = 'SYS' and smr.receiver = #{userVo.userId,jdbcType=VARCHAR}
+		select m.ID,m.CREATE_TIME ,m.TITLE,m.CONTENT,u.NAME username
+		,smr.status READ_FLAG
+		from sys_message m left join sys_user u on
+		u.USER_ID = m.CONTACT_USER
+		inner join sys_message_receiver smr on
+		smr.message_id = m.ID
+		where
+		m.MESSAGE_TYPE = 'SYS' and smr.receiver =
+		#{userVo.userId,jdbcType=VARCHAR}
 		<if test="query.startTime != null  and query.endTime != null ">
 			and date_format(m.CREATE_TIME,'%Y-%m-%d') 
-			<![CDATA[ >= ]]> #{query.startTime,jdbcType=DATE} 
-			and date_format(m.CREATE_TIME,'%Y-%m-%d') 
-			<![CDATA[ <= ]]> #{query.endTime,jdbcType=DATE} 
+			<![CDATA[ >= ]]>
+			#{query.startTime,jdbcType=DATE}
+			and
+			date_format(m.CREATE_TIME,'%Y-%m-%d') 
+			<![CDATA[ <= ]]>
+			#{query.endTime,jdbcType=DATE}
 		</if>
 		<if test="query.readFlag != null and query.readFlag != ''">
 			and m.READ_FLAG = #{query.readFlag,jdbcType=VARCHAR}

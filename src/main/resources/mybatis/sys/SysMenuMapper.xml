@@ -1,147 +1,168 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="online.rubick.applications.dao.sys.SysMenuMapper" >
-  <resultMap id="BaseResultMap" type="online.rubick.applications.entity.sys.SysMenu" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="catalog_id" property="catalogId" jdbcType="VARCHAR" />
-    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
-    <result column="url" property="url" jdbcType="VARCHAR" />
-    <result column="icon_path" property="iconPath" jdbcType="VARCHAR" />
-    <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="back_url" property="backUrl" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, catalog_id, menu_name, url, icon_path, description, create_time, status ,back_url
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from sys_menu
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from sys_menu
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="online.rubick.applications.entity.sys.SysMenu" >
-    insert into sys_menu (id, catalog_id, menu_name, 
-      url, icon_path, description, 
-      create_time, status,back_url)
-    values (#{id,jdbcType=VARCHAR}, #{catalogId,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{iconPath,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{backUrl,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="online.rubick.applications.entity.sys.SysMenu" >
-    insert into sys_menu
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="catalogId != null" >
-        catalog_id,
-      </if>
-      <if test="menuName != null" >
-        menu_name,
-      </if>
-      <if test="url != null" >
-        url,
-      </if>
-      <if test="iconPath != null" >
-        icon_path,
-      </if>
-      <if test="description != null" >
-        description,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="backUrl != null" >
-        back_url,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="catalogId != null" >
-        #{catalogId,jdbcType=VARCHAR},
-      </if>
-      <if test="menuName != null" >
-        #{menuName,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null" >
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="iconPath != null" >
-        #{iconPath,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null" >
-        #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="backUrl != null" >
-        #{backUrl,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="online.rubick.applications.entity.sys.SysMenu" >
-    update sys_menu
-    <set >
-      <if test="catalogId != null" >
-        catalog_id = #{catalogId,jdbcType=VARCHAR},
-      </if>
-      <if test="menuName != null" >
-        menu_name = #{menuName,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null" >
-        url = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="iconPath != null" >
-        icon_path = #{iconPath,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null" >
-        description = #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="backUrl != null" >
-        back_url = #{backUrl,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="online.rubick.applications.entity.sys.SysMenu" >
-    update sys_menu
-    set catalog_id = #{catalogId,jdbcType=VARCHAR},
-      menu_name = #{menuName,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR},
-      icon_path = #{iconPath,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=VARCHAR},
-      back_url = #{backUrl,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <select id="getAll" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sys_menu
-  </select>
-  <select id="getMenuIdsByRole" parameterType="java.lang.String" resultType="java.lang.String">
-  	SELECT MENU_ID FROM `sys_role_menu` where ROLE_ID = #{roleId}
-  </select>
+<mapper namespace="online.rubick.applications.dao.sys.SysMenuMapper">
+	<resultMap id="BaseResultMap" type="online.rubick.applications.entity.sys.SysMenu">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="catalog_id" property="catalogId" jdbcType="VARCHAR" />
+		<result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="icon_path" property="iconPath" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="back_url" property="backUrl" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, catalog_id, menu_name, url, icon_path,
+		description,create_time,status,back_url
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sys_menu
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		sys_menu
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="online.rubick.applications.entity.sys.SysMenu">
+		insert into sys_menu (id,
+		catalog_id, menu_name,
+		url, icon_path, description,
+		create_time,
+		status,back_url)
+		values (#{id,jdbcType=VARCHAR},
+		#{catalogId,jdbcType=VARCHAR},
+		#{menuName,jdbcType=VARCHAR},
+		#{url,jdbcType=VARCHAR}, #{iconPath,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{status,jdbcType=VARCHAR},
+		#{backUrl,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="online.rubick.applications.entity.sys.SysMenu">
+		insert into sys_menu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="catalogId != null">
+				catalog_id,
+			</if>
+			<if test="menuName != null">
+				menu_name,
+			</if>
+			<if test="url != null">
+				url,
+			</if>
+			<if test="iconPath != null">
+				icon_path,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="backUrl != null">
+				back_url,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="catalogId != null">
+				#{catalogId,jdbcType=VARCHAR},
+			</if>
+			<if test="menuName != null">
+				#{menuName,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				#{url,jdbcType=VARCHAR},
+			</if>
+			<if test="iconPath != null">
+				#{iconPath,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="backUrl != null">
+				#{backUrl,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="online.rubick.applications.entity.sys.SysMenu">
+		update sys_menu
+		<set>
+			<if test="catalogId != null">
+				catalog_id = #{catalogId,jdbcType=VARCHAR},
+			</if>
+			<if test="menuName != null">
+				menu_name = #{menuName,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				url = #{url,jdbcType=VARCHAR},
+			</if>
+			<if test="iconPath != null">
+				icon_path = #{iconPath,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="backUrl != null">
+				back_url = #{backUrl,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="online.rubick.applications.entity.sys.SysMenu">
+		update sys_menu
+		set catalog_id = #{catalogId,jdbcType=VARCHAR},
+		menu_name =
+		#{menuName,jdbcType=VARCHAR},
+		url = #{url,jdbcType=VARCHAR},
+		icon_path =
+		#{iconPath,jdbcType=VARCHAR},
+		description =
+		#{description,jdbcType=VARCHAR},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=VARCHAR},
+		back_url = #{backUrl,jdbcType=VARCHAR}
+		where id =
+		#{id,jdbcType=VARCHAR}
+	</update>
+	<select id="getAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_menu
+	</select>
+	<select id="getMenuIdsByRole" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		SELECT MENU_ID FROM `sys_role_menu` where ROLE_ID =
+		#{roleId}
+	</select>
+	<select id="listParentMenu" resultMap="BaseResultMap">
+		select * from sys_menu
+		where CATALOG_ID ='0'
+	</select>
 </mapper>

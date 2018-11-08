@@ -11,7 +11,8 @@
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		role_id, role_code, create_time, status, role_name, description,
+		role_id, role_code, create_time, status, role_name,
+		description,
 		update_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
@@ -176,7 +177,8 @@
 		from
 		sys_role where status ='1'
 	</select>
-	<select id="findByRoleCode" parameterType="java.lang.String" resultType="java.lang.String">
-		select * from  sys_role where role_code = #{roleCode}
+	<select id="findByRoleCode" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select * from sys_role where role_code = #{roleCode}
 	</select>
 </mapper>

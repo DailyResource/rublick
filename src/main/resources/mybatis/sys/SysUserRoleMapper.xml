@@ -18,7 +18,8 @@
 		where id = #{id,jdbcType=VARCHAR}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-		delete from sys_user_role
+		delete from
+		sys_user_role
 		where id = #{id,jdbcType=VARCHAR}
 	</delete>
 	<delete id="delectRoleUserRelationByUserId" parameterType="java.lang.String">
@@ -26,9 +27,11 @@
 		where user_id = #{userId,jdbcType=VARCHAR}
 	</delete>
 	<insert id="insert" parameterType="online.rubick.applications.entity.sys.SysUserRole">
-		insert into sys_user_role (id, role_id, user_id
+		insert into sys_user_role (id,
+		role_id, user_id
 		)
-		values (#{id,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR},
+		values (#{id,jdbcType=VARCHAR},
+		#{roleId,jdbcType=VARCHAR},
 		#{userId,jdbcType=VARCHAR}
 		)
 	</insert>
@@ -70,9 +73,11 @@
 		where id = #{id,jdbcType=VARCHAR}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="online.rubick.applications.entity.sys.SysUserRole">
-		update sys_user_role
+		update
+		sys_user_role
 		set role_id = #{roleId,jdbcType=VARCHAR},
-		user_id = #{userId,jdbcType=VARCHAR}
+		user_id =
+		#{userId,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=VARCHAR}
 	</update>
 	<select id="getByUserId" resultMap="BaseResultMap"
@@ -83,6 +88,8 @@
 		where user_id = #{userId,jdbcType=VARCHAR}
 	</select>
 	<update id="updateByUserId" parameterType="online.rubick.applications.entity.sys.SysUserRole">
-	update sys_user_role set role_id=#{roleId,jdbcType=VARCHAR} WHERE user_id=#{userId,jdbcType=VARCHAR}
+		update sys_user_role
+		set role_id=#{roleId,jdbcType=VARCHAR} WHERE
+		user_id=#{userId,jdbcType=VARCHAR}
 	</update>
 </mapper>

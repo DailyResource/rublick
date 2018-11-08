@@ -30,7 +30,8 @@
 		su.MOBILE mobile
 		FROM
 		sys_option_log ol
-		LEFT JOIN
+		LEFT
+		JOIN
 		sys_user su ON
 		ol.user_id = su.USER_ID where 1=1
 		<if test="startDate != null and endDate != null">
@@ -39,7 +40,8 @@
 			option_time &gt;=#{startDate,jdbcType=TIMESTAMP}
 		</if>
 		<if test="projectName != null">
-			and su.projectName like CONCAT('%',#{projectName,jdbcType=VARCHAR},'%')
+			and su.projectName like
+			CONCAT('%',#{projectName,jdbcType=VARCHAR},'%')
 		</if>
 		order by ol.option_time desc
 	</select>
@@ -49,7 +51,8 @@
 		where id = #{id,jdbcType=VARCHAR}
 	</delete>
 	<insert id="insert" parameterType="online.rubick.applications.entity.sys.SysOptionLog">
-		insert into sys_option_log (id,
+		insert into sys_option_log
+		(id,
 		user_id, option_time,
 		option_url, option_value, option_info
 		)
@@ -125,7 +128,8 @@
 		where id = #{id,jdbcType=VARCHAR}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="online.rubick.applications.entity.sys.SysOptionLog">
-		update sys_option_log
+		update
+		sys_option_log
 		set user_id = #{userId,jdbcType=VARCHAR},
 		option_time =
 		#{optionTime,jdbcType=TIMESTAMP},

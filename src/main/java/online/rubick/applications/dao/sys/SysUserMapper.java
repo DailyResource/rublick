@@ -21,11 +21,9 @@ public interface SysUserMapper {
 
 	List<SysUser> selectByLoginId(String loginId);
 
-
 	int updateByPrimaryKeySelective(SysUser record);
 
 	Page<SysUser> getUsersByIds(@Param("ids") List<String> ids, Pageable pageable);
-
 
 	List<String> selectRoleByUserId(@Param("userId") String userId, @Param("roleId") String roleId);
 
@@ -34,17 +32,18 @@ public interface SysUserMapper {
 	List<SysUser> selectAll();
 
 	List<SysUser> getUserByMoble(@Param("mobile") String mobile);
-	
+
 	List<SysUser> getFixUserByMoble(@Param("mobile") String mobile);
 
 	void updateClientId(SysUser user);
 
 	int deleteUserById(String userId);
 
-	Page<SysUser> getAllPage(@Param("keyword")String keyword, Pageable pageable);
+	Page<SysUser> getAllPage(@Param("keyword") String keyword, Pageable pageable);
 
-	SysUser findByUserId(@Param("userId")String userId);
-	
-	SysUser findByLoginId(@Param("loginId")String loginId);
+	SysUser findByUserId(@Param("userId") String userId);
 
+	SysUser findByLoginId(@Param("loginId") String loginId);
+
+	List<SysUser> findByMobile(@Param("mobile") String mobile);
 }

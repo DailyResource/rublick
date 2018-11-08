@@ -1,36 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="online.rubick.applications.dao.sys.SysRolePermissionMapper" >
-  <resultMap id="BaseResultMap" type="online.rubick.applications.entity.sys.SysRolePermission" >
-    <result column="role_id" property="roleId" jdbcType="VARCHAR" />
-    <result column="permission_id" property="permissionId" jdbcType="VARCHAR" />
-  </resultMap>
-  <insert id="insert" parameterType="online.rubick.applications.entity.sys.SysRolePermission" >
-    insert into sys_role_permission (role_id, permission_id)
-    values (#{roleId,jdbcType=VARCHAR}, #{permissionId,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="online.rubick.applications.entity.sys.SysRolePermission" >
-    insert into sys_role_permission
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="roleId != null" >
-        role_id,
-      </if>
-      <if test="permissionId != null" >
-        permission_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="roleId != null" >
-        #{roleId,jdbcType=VARCHAR},
-      </if>
-      <if test="permissionId != null" >
-        #{permissionId,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="getByRoleId" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select *
-    from sys_role_permission
-    where role_id = #{roleId,jdbcType=VARCHAR}
-  </select>
+<mapper namespace="online.rubick.applications.dao.sys.SysRolePermissionMapper">
+	<resultMap id="BaseResultMap"
+		type="online.rubick.applications.entity.sys.SysRolePermission">
+		<result column="role_id" property="roleId" jdbcType="VARCHAR" />
+		<result column="permission_id" property="permissionId"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="insert"
+		parameterType="online.rubick.applications.entity.sys.SysRolePermission">
+		insert into sys_role_permission (role_id, permission_id)
+		values (#{roleId,jdbcType=VARCHAR}, #{permissionId,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="online.rubick.applications.entity.sys.SysRolePermission">
+		insert into sys_role_permission
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">
+				role_id,
+			</if>
+			<if test="permissionId != null">
+				permission_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">
+				#{roleId,jdbcType=VARCHAR},
+			</if>
+			<if test="permissionId != null">
+				#{permissionId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="getByRoleId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select *
+		from sys_role_permission
+		where role_id =
+		#{roleId,jdbcType=VARCHAR}
+	</select>
 </mapper>

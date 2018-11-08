@@ -23,4 +23,6 @@ public interface SysMenuMapper {
     public List<SysMenu> getAll();
     
     List<String> getMenuIdsByRole(@Param("roleId")String roleId);
+    
+    List<SysMenu> listParentMenu();
 }
