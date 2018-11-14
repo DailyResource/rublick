@@ -23,3 +23,12 @@ logging:
   file: /opt/logs/${spring.application.name}
   level:
     com.letsiot.eam: debug
+    
+SMS:
+  ACCESSKEYID: LTAIj6lGxp9lILBn
+  ACCESSKEYSECRET: 95KOIj1ad0U8z2CSppJ47M06YFcrP4
+  SIGNNAME: 拉比克
+  TEMPLET:
+    FORGETPASSWORD: SMS_125016994
+    WARN: SMS_139233533
+  message: false

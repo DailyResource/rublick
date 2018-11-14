@@ -1,12 +1,16 @@
 package online.rubick.applications.controller.sys;
 
-import java.io.InputStream;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.codec.digest.DigestUtils;
+import org.hibernate.validator.constraints.NotBlank;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -35,6 +39,8 @@ import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import online.rubick.applications.entity.enums.RoleType;
 import online.rubick.applications.entity.sys.SysUser;
 import online.rubick.applications.entity.sys.SysUserLog;
@@ -44,7 +50,6 @@ import online.rubick.applications.security.annotation.SessionAccount;
 import online.rubick.applications.service.SysUserLogService;
 import online.rubick.applications.service.SysUserRoleService;
 import online.rubick.applications.service.SysUserService;
-import online.rubick.applications.util.FtpUtil;
 import online.rubick.applications.vo.sys.UpdatePasswordVO;
 import online.rubick.applications.vo.sys.UserLogVO;
 import online.rubick.applications.vo.sys.UserVO;
@@ -62,6 +67,31 @@ public class UserController {
 	private SysUserRoleService userRoleService;
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
+
+	@ApiOperation(value = "重置密码", notes = "重置密码")
+	@RequestMapping(method = RequestMethod.POST, value = "resetPassWord")
+	public void resetPassWord(
+			@RequestParam(value = "userId", required = true) @NotBlank(message = "用户名不能为空") String userId) {
+		SysUser userInfo = null;
+		// 2.根据用户的id，查询出用户的信息
+		if (!StringUtils.isEmpty(userId)) {
+			userInfo = userService.selectByPrimaryKey(userId);
+		}
+		if (userInfo == null) {
+			throw new ApplicationException("登录信息异常");
+		}
+		// 3.验证用户的旧密码是否与数据库的密码一致
+		PasswordEncoder passwordEncode = new StandardPasswordEncoder();
+		// 先MD5加密，再由spring加密
+		
+		String md5Encode = DigestUtils.md5Hex("123456");
+		String encode = passwordEncode.encode(md5Encode);
+		userInfo.setPassword(encode);
+		// 4.记录修改密码的时间
+		userInfo.setChangePasswordTime(new Date());
+		userService.updateByPrimaryKeySelective(userInfo);
+
+	}
 
 	@ApiOperation(value = "修改密码", notes = "修改密码", response = Map.class)
 	@RequestMapping(method = RequestMethod.POST, value = "UpdatePassWord")
@@ -158,6 +188,67 @@ public class UserController {
 			}
 		});
 		return new PageImpl<>(volist, pageable, sysUserLogPage.getTotalElements());
+	}
+
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "请求成功") })
+	@ApiOperation(value = "上传头像", notes = "上传成功后，服务器将返回头像保存的地址信息。")
+	@RequestMapping(value = "/uploadHeadPhoto", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> uploadHeadPhoto(@ApiParam(name = "file", value = "头像文件") MultipartFile file,
+			@SessionAccount UserVO userVO) throws Exception {
+//		// 1.首先判断id不为空
+//		if (StringUtils.isEmpty(userVO.getUserId())) {
+//			throw new ApplicationException("用户信息登录异常");
+//		}
+//		// 2.判断获取的文件信息是否为空
+//		if (StringUtils.isEmpty(file)) {
+//			throw new ApplicationException("读取文件发生错误");
+//		}
+//		Attachment attachment = new Attachment(file);
+//		if (!StringUtils.isEmpty(attachment)) {
+//			String path = fileSvc.uploadFile(userVO.getUserId(), attachment);
+//			SysUser sysUser = new SysUser();
+//			userVO.setPhotoPath(path);
+//			BeanUtils.copyProperties(userVO, sysUser);
+//			// 3.把路径保存到数据库
+//			userService.updateByPrimaryKeySelective(sysUser);
+//			// 4.把保存的路径返回给前台
+//			HashMap<String, Object> hashMap = new HashMap<>();
+//			hashMap.put("photoPath", path);
+//			return hashMap;
+//		}
+		return null;
+	}
+
+	@ApiOperation(value = "用户头像下载", notes = "用户头像下载")
+	@RequestMapping(method = RequestMethod.GET, value = "downloadHeadPhoto")
+	public void downloadHeadPhoto(HttpServletResponse response, HttpServletRequest request,
+			@SessionAccount UserVO userVO) throws Exception {
+//		if (StringUtils.isEmpty(userVO.getUserId())) {
+//			throw new ApplicationException("用户信息登录异常");
+//		} else if (!StringUtils.isEmpty(userVO.getUserId())) {
+//			SysUser sysUser = userService.selectByPrimaryKey(userVO.getUserId());
+//			String photoPath = sysUser.getPhotoPath();
+//			if (StringUtils.isEmpty(photoPath)) {
+//				response.setCharacterEncoding("utf-8");
+//				response.getWriter().print("没有相关的图片信息");
+//			} else {
+//				byte[] downloadFile = fileSvc.downloadFile(photoPath);
+//				if (downloadFile == null) {
+//					response.setCharacterEncoding("utf-8");
+//					response.getWriter().print("没有相关的图片信息");
+//				} else {
+//					response.setHeader("Cache-Control", "no-store");
+//					response.setHeader("Pragma", "no-cache");
+//					response.setDateHeader("Expires", 0);
+//					response.setContentType("image/jpeg");
+//					ServletOutputStream responseOutputStream = response.getOutputStream();
+//					responseOutputStream.write(downloadFile);
+//					responseOutputStream.flush();
+//					responseOutputStream.close();
+//				}
+//			}
+//		}
 	}
 
 	@ApiOperation(value = "新增用户", notes = "新增用户", response = UserVO.class)

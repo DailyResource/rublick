@@ -19,6 +19,14 @@
 		<result column="WARN_TYPE" property="warnType" jdbcType="VARCHAR" />
 		<result column="username" property="username" jdbcType="VARCHAR" />
 	</resultMap>
+	<resultMap id="BaseResultMap1" type="online.rubick.applications.vo.sys.MessageVo">
+		<result column="messageId" property="messageId" jdbcType="VARCHAR" />
+		<result column="createTime" property="createTime" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="optionUser" property="optionUser" jdbcType="VARCHAR" />
+		<result column="optionTime" property="optionTime" jdbcType="VARCHAR" />
+		<result column="readFlag" property="readFlag" jdbcType="VARCHAR" />	
+	</resultMap>
 	<sql id="Base_Column_List">
 		ID, CONTACT_USER, CONTACT_TEL, TITLE, SEND_TIME, SEND_NUM,
 		RESEND_NUM,
@@ -255,5 +263,65 @@
 		<if test="query.readFlag != null and query.readFlag != ''">
 			and m.READ_FLAG = #{query.readFlag,jdbcType=VARCHAR}
 		</if>
+	</select>
+	
+	<!--消息管理信息条件分页查询 -->
+	<select id="selectAllMessage" parameterType="online.rubick.applications.Query.MessageManagementQuery"
+		resultMap="BaseResultMap1">
+		SELECT
+		ID messageId,
+		date_format(CREATE_TIME,'%Y-%m-%d %H:%i:%s') createTime,
+		CONTENT content,
+		date_format(OPTION_TIME,'%Y-%m-%d %H:%i:%s') optionTime,
+		OPTION_USER optionUser,
+		READ_FLAG readFlag
+		FROM
+		sys_message 
+		<where>
+			<if test="query.messageType!=null and query.messageType!=''">
+				MESSAGE_TYPE =#{query.messageType,jdbcType=VARCHAR}
+			</if>
+			<if test="query.warnType!=null and query.warnType!=''">
+				and WARN_TYPE =#{query.warnType,jdbcType=VARCHAR}
+			</if>
+			<if test="query.readFlag!=null and query.readFlag!=''">
+				and READ_FLAG =#{query.readFlag,jdbcType=VARCHAR}
+			</if>
+			<if test="query.deviceId!=null and query.deviceId!=''">
+				and DEVICE_ID =#{query.deviceId,jdbcType=VARCHAR}
+			</if>
+			<if test='query.userId != null and query.userId != "" and query.warnType == "1" '>
+				and CONTACT_USER = #{query.userId,jdbcType=VARCHAR}
+			</if>
+		</where>
+		order by CREATE_TIME DESC
+	</select>
+	
+	<!--根据id将未读消息标记为已读 并记录操作人和操作时间  -->
+	<update id="updateReadFlagById" parameterType="java.lang.String">
+	UPDATE sys_message set READ_FLAG=#{readFlag,jdbcType=VARCHAR},OPTION_USER=#{optionUser,jdbcType=VARCHAR},OPTION_TIME=#{optiontime,jdbcType=VARCHAR} where ID=#{Id,jdbcType=VARCHAR}
+	</update>
+	
+	<!--用于根据条件进行全部标记  -->
+	<select id="selectAllMessageByAllNORead" parameterType="online.rubick.applications.Query.MessageManagementQuery"
+		resultType="java.lang.String">
+		SELECT
+		sus.ID messageId
+		FROM
+		sys_message 
+		<where>
+			<if test="query.messageType!=null and query.messageType!=''">
+				MESSAGE_TYPE =#{query.messageType,jdbcType=VARCHAR}
+			</if>
+			<if test="query.warnType!=null and query.warnType!=''">
+				and WARN_TYPE =#{query.warnType,jdbcType=VARCHAR}
+			</if>
+			<if test="query.deviceId!=null and query.deviceId!=''">
+				and DEVICE_ID =#{query.deviceId,jdbcType=VARCHAR}
+			</if>
+			<if test="query.readFlag!=null and query.readFlag!=''">
+				and READ_FLAG =#{query.readFlag,jdbcType=VARCHAR}
+			</if>
+		</where>
 	</select>
 </mapper>

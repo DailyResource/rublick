@@ -1,4 +1,4 @@
-package online.rubick.applications.controller;
+package online.rubick.applications.controller.wx;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

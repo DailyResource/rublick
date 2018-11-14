@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -51,9 +52,17 @@ public class SysUserService {
 		user.setCreateDate(Calendar.getInstance().getTime());
 		user.setState(UserState.INIT);
 		PasswordEncoder passwordEncode = new StandardPasswordEncoder();
-		String encode = passwordEncode.encode("123456");
-		user.setPassword(encode);
-		return userDao.insertSelective(user) > 0;
+		//先MD5加密，再由spring加密
+		String md5Encode = DigestUtils.md5Hex("123456");
+		String encode = passwordEncode.encode(md5Encode);
+		user.setPassword(encode);	
+		//用户角色绑定
+        SysUserRole sur = new SysUserRole();
+        sur.setId(String.valueOf(IdUtil.getId()));
+        sur.setUserId(user.getUserId());
+        sur.setRoleId(user.getRole());
+        sysUserRoleService.save(sur);    
+		return userDao.insertSelective(user) > 0;	
 	}
 
 	public boolean deleteUserById(String userId) {
@@ -100,7 +109,6 @@ public class SysUserService {
 	public void updateUser(UserVO vo) {
 		SysUser user = userDao.selectByPrimaryKey(vo.getUserId());
 		if (user != null) {
-			user.setCompanyId(vo.getCompanyId());
 			user.setLoginId(vo.getLoginId());
 			user.setName(vo.getUserName());
 			user.setMobile(vo.getMobile());
