@@ -1,5 +1,6 @@
 package online.rubick.applications.controller.sys;
 
+import java.io.InputStream;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,6 +51,7 @@ import online.rubick.applications.security.annotation.SessionAccount;
 import online.rubick.applications.service.SysUserLogService;
 import online.rubick.applications.service.SysUserRoleService;
 import online.rubick.applications.service.SysUserService;
+import online.rubick.applications.util.FtpUtil;
 import online.rubick.applications.vo.sys.UpdatePasswordVO;
 import online.rubick.applications.vo.sys.UserLogVO;
 import online.rubick.applications.vo.sys.UserVO;
