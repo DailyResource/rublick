@@ -8,12 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-/**
- * 今创EAM系统入口程序
- * 
- * @author 张峻峰
- * @Date 2018年10月31日
- */
 @SpringBootApplication
 @ImportResource(locations={"classpath:mykaptcha.xml"}) 
 @EnableAutoConfiguration
