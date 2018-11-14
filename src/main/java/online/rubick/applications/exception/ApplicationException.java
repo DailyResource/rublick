@@ -17,7 +17,7 @@ public class ApplicationException extends NestedRuntimeException implements Exce
      * 
      * @param enumUnit
      */
-    public ApplicationException(EnumUnit enumUnit) {
+    public ApplicationException(EnumUnit<?> enumUnit) {
         super(enumUnit.getDescription());
 
         this.code = Integer.parseInt(enumUnit.getCode());
