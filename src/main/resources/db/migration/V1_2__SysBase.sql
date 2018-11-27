@@ -1,7 +1,7 @@
 CREATE TABLE `user_wechat` (
   `id` varchar(20) NOT NULL COMMENT '标识',
   `user_id` varchar(20) NOT NULL DEFAULT ''  COMMENT '用户id',
-	`wechat_open_id` varchar(255) NOT NULL DEFAULT '' COMMENT '微信openid',
+  `wechat_open_id` varchar(255) NOT NULL DEFAULT '' COMMENT '微信openid',
   `wechat_union_id` varchar(255) NOT NULL DEFAULT '' COMMENT '微信用户union id',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
