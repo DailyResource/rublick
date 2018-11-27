@@ -5,26 +5,60 @@ CREATE TABLE `files_type` (
   PRIMARY KEY (`file_type_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文件类型';
 
+CREATE TABLE `files_group` (
+  `group_id` varchar(20) NOT NULL COMMENT '分组标识',
+  `group_name` varchar(20) DEFAULT NULL COMMENT '分组名称',
+  `user_id` varchar(20) DEFAULT NULL COMMENT '所属用户id',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `remark` varchar(1000) DEFAULT NULL COMMENT '备注',
+   PRIMARY KEY (`group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文件分组';
+
+
 CREATE TABLE `files` (
-  `id` varchar(20) NOT NULL,
-  `type` char(1) NOT NULL COMMENT '类型',
+  `file_code` varchar(20) NOT NULL COMMENT '文件标识',
+  `file_name` varchar(50) DEFAULT NULL COMMENT '文件名',
+  `type` char(1) NOT NULL COMMENT '文件类型',
+  `group_id` varchar(20) DEFAULT NULL COMMENT '文件分组',
   `status` char(1) NOT NULL DEFAULT '0' COMMENT '状态',
   `user_id` varchar(20) DEFAULT NULL COMMENT '所属用户id',
-  `file_name` varchar(50) DEFAULT NULL COMMENT '文件名',
   `extension` varchar(20) DEFAULT NULL COMMENT '扩展名',
   `file_url` varchar(500) DEFAULT NULL COMMENT '链接',
   `size` int(11) DEFAULT NULL COMMENT '大小',
   `related_id` varchar(20) DEFAULT NULL COMMENT '关联id',
+  `title` varchar(50) DEFAULT NULL COMMENT '标题',
+  `remark` varchar(1000) DEFAULT NULL COMMENT '备注',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文件';
+
+CREATE TABLE `files_favorite` (
+  `id` varchar(20) NOT NULL COMMENT '标识',
+  `file_code` varchar(20) DEFAULT NULL COMMENT '文件id',
+  `favorite_user` varchar(20) DEFAULT NULL COMMENT '评论用户id',
+	`is_favorite` CHAR(1) DEFAULT NULL COMMENT '是否喜爱',
+	`create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='喜爱表';
+
+CREATE TABLE `files_comment` (
+  `id` varchar(20) NOT NULL COMMENT '标识',
+  `file_code` varchar(20) DEFAULT NULL COMMENT '文件id',
+  `comment_user` varchar(20) DEFAULT NULL COMMENT '评论用户id',
+  `comment_content` varchar(1000) DEFAULT NULL COMMENT '评论内容',
+	`create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评论表';
 
 CREATE TABLE `area` (
   `codeid` varchar(12) NOT NULL,
   `parentid` varchar(12) NOT NULL,
   `cityName` varchar(50) NOT NULL,
-  PRIMARY KEY (`codeid`) USING BTREE
+   PRIMARY KEY (`codeid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 
