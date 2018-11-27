@@ -1,6 +1,11 @@
 package online.rubick.applications.controller.file;
 
-import java.io.InputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -9,18 +14,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import io.swagger.annotations.ApiOperation;
-import online.rubick.applications.util.SftpUtil;
 
 @RestController
 public class FileController {
-	
+
 	@ApiOperation(value = "图片展示", notes = "图片展示")
-	@GetMapping(value="/downloadPhoto")
+	@GetMapping(value = "/downloadPhoto")
 	public void downloadHeadPhoto(HttpServletResponse response, HttpServletRequest request,
 			@RequestParam("photoPath") String photoPath) throws Exception {
 
@@ -39,30 +47,115 @@ public class FileController {
 			responseOutputStream.close();
 		}
 	}
-	
-	
+
 	@ApiOperation(value = "上传文件", notes = "上传文件")
-	@PostMapping(value="/upload")
-	public void upload(MultipartFile file) throws Exception {
-	   
-	   
-	     //Sftp上传文件
-         SftpUtil sftp = new SftpUtil("lihe", "lihe2018", "10.0.5.239", 2020);
-         sftp.login(); 
-         InputStream is = file.getInputStream();
-         sftp.upload("/data/work", file.getOriginalFilename(), is); 
-         sftp.logout();
-		
-	    // Sftp删除文件
-        // SftpUtil sftp = new SftpUtil("lihe", "lihe2018", "10.0.5.239", 2020);
-        // sftp.login();
-        // sftp.delete(dmsUpdateFile.getUpdateFilePath(),
-        // dmsUpdateFile.getUpdateFileName());
-        // sftp.logout();
-         
-        // 下载
-        //byte[] buff = sftp.download("/opt", "start.sh");
- 	    //System.out.println(Arrays.toString(buff));
+	@PostMapping(value = "/upload")
+	public void testUploadFile(HttpServletRequest req, MultipartHttpServletRequest multiReq) {
+		// 获取上传文件的路径
+		String uploadFilePath = multiReq.getFile("file1").getOriginalFilename();
+		System.out.println("uploadFlePath:" + uploadFilePath);
+		// 截取上传文件的文件名
+		String uploadFileName = uploadFilePath.substring(uploadFilePath.lastIndexOf('\\') + 1,
+				uploadFilePath.indexOf('.'));
+		System.out.println("multiReq.getFile()" + uploadFileName);
+		// 截取上传文件的后缀
+		String uploadFileSuffix = uploadFilePath.substring(uploadFilePath.indexOf('.') + 1, uploadFilePath.length());
+		System.out.println("uploadFileSuffix:" + uploadFileSuffix);
+		FileOutputStream fos = null;
+		FileInputStream fis = null;
+		try {
+			fis = (FileInputStream) multiReq.getFile("file1").getInputStream();
+			fos = new FileOutputStream(new File(".//uploadFiles//" + uploadFileName + ".") + uploadFileSuffix);
+			byte[] temp = new byte[1024];
+			int i = fis.read(temp);
+			while (i != -1) {
+				fos.write(temp, 0, temp.length);
+				fos.flush();
+				i = fis.read(temp);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (fos != null) {
+				try {
+					fos.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	@ApiOperation(value = "上传多个文件", notes = "上传多个文件")
+	@PostMapping(value = "/uploads")
+	public void handleFileUpload(HttpServletRequest request) {
+		List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
+		MultipartFile file = null;
+		BufferedOutputStream stream = null;
+		for (int i = 0; i < files.size(); ++i) {
+			file = files.get(i);
+			if (!file.isEmpty()) {
+				try {
+					String uploadFilePath = file.getOriginalFilename();
+					System.out.println("uploadFlePath:" + uploadFilePath);
+					// 截取上传文件的文件名
+					String uploadFileName = uploadFilePath.substring(uploadFilePath.lastIndexOf('\\') + 1,
+							uploadFilePath.indexOf('.'));
+					System.out.println("multiReq.getFile()" + uploadFileName);
+					// 截取上传文件的后缀
+					String uploadFileSuffix = uploadFilePath.substring(uploadFilePath.indexOf('.') + 1,
+							uploadFilePath.length());
+					System.out.println("uploadFileSuffix:" + uploadFileSuffix);
+					stream = new BufferedOutputStream(new FileOutputStream(
+							new File(".//uploadFiles//" + uploadFileName + "." + uploadFileSuffix)));
+					byte[] bytes = file.getBytes();
+					stream.write(bytes, 0, bytes.length);
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					try {
+						if (stream != null) {
+							stream.close();
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			} else {
+				System.out.println("上传文件为空");
+			}
+		}
+		System.out.println("文件接受成功了");
+	}
+
+	@ApiOperation(value = "sftp上传文件", notes = "sftp上传文件")
+	@PostMapping(value = "/sftp")
+	public String sftp(MultipartFile file) {
+		// Sftp上传文件
+		// SftpUtil sftp = new SftpUtil("lihe", "lihe2018", "10.0.5.239", 2020);
+		// sftp.login();
+		// InputStream is = file.getInputStream();
+		// sftp.upload("/data/work", file.getOriginalFilename(), is);
+		// sftp.logout();
+
+		// Sftp删除文件
+		// SftpUtil sftp = new SftpUtil("lihe", "lihe2018", "10.0.5.239", 2020);
+		// sftp.login();
+		// sftp.delete(dmsUpdateFile.getUpdateFilePath(),
+		// dmsUpdateFile.getUpdateFileName());
+		// sftp.logout();
+
+		// 下载
+		// byte[] buff = sftp.download("/opt", "start.sh");
+		// System.out.println(Arrays.toString(buff));
+		return "该方法没有实现";
 	}
 
 }

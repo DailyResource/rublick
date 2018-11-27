@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="online.rubick.applications.dao.rubick.FilesFavoriteMapper" >
+  <resultMap id="BaseResultMap" type="online.rubick.applications.entity.rubick.FilesFavorite" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="file_code" property="fileCode" jdbcType="VARCHAR" />
+    <result column="favorite_user" property="favoriteUser" jdbcType="VARCHAR" />
+    <result column="is_favorite" property="isFavorite" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, file_code, favorite_user, is_favorite, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from files_favorite
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from files_favorite
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="online.rubick.applications.entity.rubick.FilesFavorite" >
+    insert into files_favorite (id, file_code, favorite_user, 
+      is_favorite, create_time, update_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{fileCode,jdbcType=VARCHAR}, #{favoriteUser,jdbcType=VARCHAR}, 
+      #{isFavorite,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="online.rubick.applications.entity.rubick.FilesFavorite" >
+    insert into files_favorite
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fileCode != null" >
+        file_code,
+      </if>
+      <if test="favoriteUser != null" >
+        favorite_user,
+      </if>
+      <if test="isFavorite != null" >
+        is_favorite,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCode != null" >
+        #{fileCode,jdbcType=VARCHAR},
+      </if>
+      <if test="favoriteUser != null" >
+        #{favoriteUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isFavorite != null" >
+        #{isFavorite,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="online.rubick.applications.entity.rubick.FilesFavorite" >
+    update files_favorite
+    <set >
+      <if test="fileCode != null" >
+        file_code = #{fileCode,jdbcType=VARCHAR},
+      </if>
+      <if test="favoriteUser != null" >
+        favorite_user = #{favoriteUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isFavorite != null" >
+        is_favorite = #{isFavorite,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="online.rubick.applications.entity.rubick.FilesFavorite" >
+    update files_favorite
+    set file_code = #{fileCode,jdbcType=VARCHAR},
+      favorite_user = #{favoriteUser,jdbcType=VARCHAR},
+      is_favorite = #{isFavorite,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

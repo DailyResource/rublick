@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="online.rubick.applications.dao.rubick.AreaMapper" >
+  <resultMap id="BaseResultMap" type="online.rubick.applications.entity.rubick.Area" >
+    <id column="codeid" property="codeid" jdbcType="VARCHAR" />
+    <result column="parentid" property="parentid" jdbcType="VARCHAR" />
+    <result column="cityName" property="cityname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    codeid, parentid, cityName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from area
+    where codeid = #{codeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from area
+    where codeid = #{codeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="online.rubick.applications.entity.rubick.Area" >
+    insert into area (codeid, parentid, cityName
+      )
+    values (#{codeid,jdbcType=VARCHAR}, #{parentid,jdbcType=VARCHAR}, #{cityname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="online.rubick.applications.entity.rubick.Area" >
+    insert into area
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="codeid != null" >
+        codeid,
+      </if>
+      <if test="parentid != null" >
+        parentid,
+      </if>
+      <if test="cityname != null" >
+        cityName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="codeid != null" >
+        #{codeid,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="cityname != null" >
+        #{cityname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="online.rubick.applications.entity.rubick.Area" >
+    update area
+    <set >
+      <if test="parentid != null" >
+        parentid = #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="cityname != null" >
+        cityName = #{cityname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where codeid = #{codeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="online.rubick.applications.entity.rubick.Area" >
+    update area
+    set parentid = #{parentid,jdbcType=VARCHAR},
+      cityName = #{cityname,jdbcType=VARCHAR}
+    where codeid = #{codeid,jdbcType=VARCHAR}
+  </update>
+</mapper>
