@@ -31,6 +31,8 @@ CREATE TABLE `files` (
   `remark` varchar(1000) DEFAULT NULL COMMENT '备注',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `love_count` int(11) DEFAULT NULL COMMENT '喜欢的人数',
+  `dislike_count` int(11) DEFAULT NULL COMMENT '不喜欢的人数',
   PRIMARY KEY (`id`) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文件';
 
