@@ -15,7 +15,6 @@ CREATE TABLE `files_group` (
    PRIMARY KEY (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文件分组';
 
-
 CREATE TABLE `files` (
   `file_code` varchar(20) NOT NULL COMMENT '文件标识',
   `file_name` varchar(50) DEFAULT NULL COMMENT '文件名',
