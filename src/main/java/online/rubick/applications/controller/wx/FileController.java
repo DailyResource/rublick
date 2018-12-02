@@ -56,7 +56,6 @@ public class FileController {
 	@GetMapping(value = "/getPhoto")
 	public void getPhoto(HttpServletResponse response, HttpServletRequest request,
 			@RequestParam("photoPath") String photoPath) throws Exception {
-
 		if (StringUtils.isEmpty(photoPath)) {
 			response.setCharacterEncoding("utf-8");
 			response.getWriter().print("没有相关的图片信息");
