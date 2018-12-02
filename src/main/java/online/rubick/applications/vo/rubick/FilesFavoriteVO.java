@@ -2,6 +2,8 @@ package online.rubick.applications.vo.rubick;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class FilesFavoriteVO  {
     private String id;
 
@@ -11,8 +13,10 @@ public class FilesFavoriteVO  {
 
     private String isFavorite;
 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
 	public String getId() {

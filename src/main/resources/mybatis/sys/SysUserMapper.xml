@@ -9,12 +9,12 @@
 		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
 		<result column="PASSWORD" property="password" jdbcType="VARCHAR" />
 		<result column="STATE" property="state" jdbcType="CHAR"
-			typeHandler="online.rubick.applications.entity.enums.typehandler.UserStateHandler" />
+			typeHandler="online.rubick.applications.enums.typehandler.UserStateHandler" />
 		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
 		<result column="LOGIN_TIME" property="loginTime" jdbcType="TIMESTAMP" />
 		<result column="LOGIN_IP" property="loginIp" jdbcType="VARCHAR" />
 		<result column="IS_LOGIN" property="islogin" jdbcType="CHAR"
-			typeHandler="online.rubick.applications.entity.enums.typehandler.YesOrNoHandler" />
+			typeHandler="online.rubick.applications.enums.typehandler.YesOrNoHandler" />
 		<result column="UPDATE_TIME" property="updateMyInfoTime"
 			jdbcType="TIMESTAMP" />
 		<result column="CHANGE_PASSWORD_TIME" property="changePasswordTime"
@@ -70,11 +70,11 @@
 		#{name,jdbcType=VARCHAR},
 		#{mobile,jdbcType=VARCHAR},
 		#{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-		#{state,jdbcType=CHAR,typeHandler=online.rubick.applications.entity.enums.typehandler.UserStateHandler
+		#{state,jdbcType=CHAR,typeHandler=online.rubick.applications.enums.typehandler.UserStateHandler
 		},
 		#{createDate,jdbcType=DATE}, #{loginTime,jdbcType=TIMESTAMP},
 		#{loginIp,jdbcType=VARCHAR},
-		#{islogin,jdbcType=CHAR,typeHandler=online.rubick.applications.entity.enums.typehandler.YesOrNoHandler},
+		#{islogin,jdbcType=CHAR,typeHandler=online.rubick.applications.enums.typehandler.YesOrNoHandler},
 		#{updateMyInfoTime,jdbcType=TIMESTAMP},
 		#{changePasswordTime,jdbcType=TIMESTAMP},
 		#{photoPath,jdbcType=VARCHAR},
@@ -151,7 +151,7 @@
 				#{password,jdbcType=VARCHAR},
 			</if>
 			<if test="state != null">
-				#{state,jdbcType=CHAR,typeHandler=online.rubick.applications.entity.enums.typehandler.UserStateHandler},
+				#{state,jdbcType=CHAR,typeHandler=online.rubick.applications.enums.typehandler.UserStateHandler},
 			</if>
 			<if test="createDate != null">
 				#{createDate,jdbcType=DATE},
@@ -163,7 +163,7 @@
 				#{loginIp,jdbcType=VARCHAR},
 			</if>
 			<if test="islogin != null">
-				#{islogin,jdbcType=CHAR,typeHandler=online.rubick.applications.entity.enums.typehandler.YesOrNoHandler},
+				#{islogin,jdbcType=CHAR,typeHandler=online.rubick.applications.enums.typehandler.YesOrNoHandler},
 			</if>
 			<if test="updateMyInfoTime != null">
 				#{updateMyInfoTime,jdbcType=TIMESTAMP},
@@ -205,7 +205,7 @@
 			</if>
 			<if test="state != null">
 				STATE =
-				#{state,jdbcType=CHAR,typeHandler=online.rubick.applications.entity.enums.typehandler.UserStateHandler},
+				#{state,jdbcType=CHAR,typeHandler=online.rubick.applications.enums.typehandler.UserStateHandler},
 			</if>
 			<if test="createDate != null">
 				CREATE_DATE = #{createDate,jdbcType=DATE},
@@ -218,7 +218,7 @@
 			</if>
 			<if test="islogin != null">
 				IS_LOGIN =
-				#{islogin,jdbcType=CHAR,typeHandler=online.rubick.applications.entity.enums.typehandler.YesOrNoHandler},
+				#{islogin,jdbcType=CHAR,typeHandler=online.rubick.applications.enums.typehandler.YesOrNoHandler},
 			</if>
 			<if test=" updateMyInfoTime != null">
 				UPDATE_TIME =

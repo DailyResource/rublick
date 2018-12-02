@@ -266,7 +266,7 @@
 	</select>
 	
 	<!--消息管理信息条件分页查询 -->
-	<select id="selectAllMessage" parameterType="online.rubick.applications.Query.MessageManagementQuery"
+	<select id="selectAllMessage" parameterType="online.rubick.applications.query.MessageManagementQuery"
 		resultMap="BaseResultMap1">
 		SELECT
 		ID messageId,
@@ -303,7 +303,7 @@
 	</update>
 	
 	<!--用于根据条件进行全部标记  -->
-	<select id="selectAllMessageByAllNORead" parameterType="online.rubick.applications.Query.MessageManagementQuery"
+	<select id="selectAllMessageByAllNORead" parameterType="online.rubick.applications.query.MessageManagementQuery"
 		resultType="java.lang.String">
 		SELECT
 		sus.ID messageId

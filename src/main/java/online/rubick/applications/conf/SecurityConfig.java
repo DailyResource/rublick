@@ -58,6 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		        "/v2/api-docs",
 		        "/swagger-resources/**",
 				"/userOperation/resetPasswords",
+				"/wx/**",
 				"/verifycode").permitAll();
 
 		registry.anyRequest().authenticated().and().formLogin().loginPage("/login.html").permitAll().and().logout()

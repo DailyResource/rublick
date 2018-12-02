@@ -2,38 +2,52 @@ package online.rubick.applications.vo.rubick;
 
 import java.util.Date;
 
-public class FilesVO  {
-    private String fileCode;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-    private String fileName;
+public class FilesVO {
+	private String fileCode;
 
-    private String type;
+	private String fileName;
 
-    private String groupId;
+	private String type;
 
-    private String status;
+	private String groupId;
 
-    private String userId;
+	private String status;
 
-    private String extension;
+	private String statusName;
 
-    private String fileUrl;
+	private String userId;
 
-    private Integer size;
+	private String extension;
 
-    private String relatedId;
+	private String fileUrl;
 
-    private String title;
+	private Integer size;
 
-    private String remark;
+	private String relatedId;
 
-    private Date createTime;
+	private String title;
 
-    private Date updateTime;
+	private String remark;
 
-    private Integer loveCount;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date createTime;
 
-    private Integer dislikeCount;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date updateTime;
+
+	private Integer loveCount;
+
+	private Integer dislikeCount;
+
+	public String getStatusName() {
+		return statusName;
+	}
+
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
+	}
 
 	public String getFileCode() {
 		return fileCode;
@@ -163,5 +177,4 @@ public class FilesVO  {
 		this.dislikeCount = dislikeCount;
 	}
 
-  
 }

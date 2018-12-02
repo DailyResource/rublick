@@ -27,19 +27,20 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import online.rubick.applications.entity.rubick.Files;
+import online.rubick.applications.enums.rubick.FileStatus;
 import online.rubick.applications.service.rubick.FilesService;
 import online.rubick.applications.vo.rubick.FilesVO;
 
 @Api(description = "文件管理")
 @RestController
-@RequestMapping("/file")
+@RequestMapping("/wx/file")
 @ResponseBody
 public class FileController {
 
 	@Autowired
 	private FilesService filesService;
 
-	@ApiOperation(value = "获取分组", notes = "获取分组")
+	@ApiOperation(value = "根据分组获取图片集合")
 	@GetMapping(value = "/getPhotoList")
 	public List<FilesVO> getPhoto(@RequestParam("groupId") String groupId) {
 		List<Files> filesList = filesService.findByGroupId(groupId);
@@ -47,12 +48,13 @@ public class FileController {
 		for (Files files : filesList) {
 			FilesVO vo =new FilesVO();
 			BeanUtils.copyProperties(files, vo);
+			vo.setStatusName(FileStatus.getEnumByCode(files.getStatus()).getDescription());
 			list.add(vo);
 		}
 		return list;
 	}
 
-	@ApiOperation(value = "图片展示", notes = "图片展示")
+	@ApiOperation(value = "图片展示")
 	@GetMapping(value = "/getPhoto")
 	public void getPhoto(HttpServletResponse response, HttpServletRequest request,
 			@RequestParam("photoPath") String photoPath) throws Exception {
@@ -72,7 +74,7 @@ public class FileController {
 		}
 	}
 
-	@ApiOperation(value = "上传文件", notes = "上传文件")
+	@ApiOperation(value = "上传文件")
 	@PostMapping(value = "/upload")
 	public void testUploadFile(HttpServletRequest req, MultipartHttpServletRequest multiReq) {
 		// 获取上传文件的路径
@@ -117,7 +119,7 @@ public class FileController {
 		}
 	}
 
-	@ApiOperation(value = "上传多个文件", notes = "上传多个文件")
+	@ApiOperation(value = "上传多个文件")
 	@PostMapping(value = "/uploads")
 	public void handleFileUpload(HttpServletRequest request) {
 		List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
@@ -159,7 +161,7 @@ public class FileController {
 		System.out.println("文件接受成功了");
 	}
 
-	@ApiOperation(value = "sftp上传文件", notes = "sftp上传文件")
+	@ApiOperation(value = "sftp上传文件")
 	@PostMapping(value = "/sftp")
 	public String sftp(MultipartFile file) {
 		// Sftp上传文件

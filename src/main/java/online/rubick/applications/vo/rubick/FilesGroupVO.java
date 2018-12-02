@@ -2,6 +2,8 @@ package online.rubick.applications.vo.rubick;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class FilesGroupVO {
 	private String groupId;
 
@@ -9,8 +11,10 @@ public class FilesGroupVO {
 
 	private String fileCode;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updateTime;
 
 	private String remark;
