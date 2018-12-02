@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 
-import online.rubick.applications.Query.MessageManagementQuery;
 import online.rubick.applications.dao.sys.SysMessageMapper;
 import online.rubick.applications.entity.sys.SysMessage;
 import online.rubick.applications.exception.ApplicationException;
+import online.rubick.applications.query.MessageManagementQuery;
 import online.rubick.applications.vo.sys.MessageVo;
 @Service
 public class SysMessageService {

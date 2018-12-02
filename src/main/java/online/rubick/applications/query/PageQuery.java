@@ -1,4 +1,4 @@
-package online.rubick.applications.Query;
+package online.rubick.applications.query;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

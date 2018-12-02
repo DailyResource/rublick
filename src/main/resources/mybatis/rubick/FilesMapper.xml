@@ -1,223 +1,239 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="online.rubick.applications.dao.rubick.FilesMapper" >
-  <resultMap id="BaseResultMap" type="online.rubick.applications.entity.rubick.Files" >
-    <id column="file_code" property="fileCode" jdbcType="VARCHAR" />
-    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="CHAR" />
-    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="CHAR" />
-    <result column="user_id" property="userId" jdbcType="VARCHAR" />
-    <result column="extension" property="extension" jdbcType="VARCHAR" />
-    <result column="file_url" property="fileUrl" jdbcType="VARCHAR" />
-    <result column="size" property="size" jdbcType="INTEGER" />
-    <result column="related_id" property="relatedId" jdbcType="VARCHAR" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="remark" property="remark" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="love_count" property="loveCount" jdbcType="INTEGER" />
-    <result column="dislike_count" property="dislikeCount" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    file_code, file_name, type, group_id, status, user_id, extension, file_url, size, 
-    related_id, title, remark, create_time, update_time, love_count, dislike_count
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from files
-    where file_code = #{fileCode,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from files
-    where file_code = #{fileCode,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="online.rubick.applications.entity.rubick.Files" >
-    insert into files (file_code, file_name, type, 
-      group_id, status, user_id, 
-      extension, file_url, size, 
-      related_id, title, remark, 
-      create_time, update_time, love_count, 
-      dislike_count)
-    values (#{fileCode,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{type,jdbcType=CHAR}, 
-      #{groupId,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{userId,jdbcType=VARCHAR}, 
-      #{extension,jdbcType=VARCHAR}, #{fileUrl,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER}, 
-      #{relatedId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{loveCount,jdbcType=INTEGER}, 
-      #{dislikeCount,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="online.rubick.applications.entity.rubick.Files" >
-    insert into files
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="fileCode != null" >
-        file_code,
-      </if>
-      <if test="fileName != null" >
-        file_name,
-      </if>
-      <if test="type != null" >
-        type,
-      </if>
-      <if test="groupId != null" >
-        group_id,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="userId != null" >
-        user_id,
-      </if>
-      <if test="extension != null" >
-        extension,
-      </if>
-      <if test="fileUrl != null" >
-        file_url,
-      </if>
-      <if test="size != null" >
-        size,
-      </if>
-      <if test="relatedId != null" >
-        related_id,
-      </if>
-      <if test="title != null" >
-        title,
-      </if>
-      <if test="remark != null" >
-        remark,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-      <if test="loveCount != null" >
-        love_count,
-      </if>
-      <if test="dislikeCount != null" >
-        dislike_count,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="fileCode != null" >
-        #{fileCode,jdbcType=VARCHAR},
-      </if>
-      <if test="fileName != null" >
-        #{fileName,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=CHAR},
-      </if>
-      <if test="groupId != null" >
-        #{groupId,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=CHAR},
-      </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="extension != null" >
-        #{extension,jdbcType=VARCHAR},
-      </if>
-      <if test="fileUrl != null" >
-        #{fileUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="size != null" >
-        #{size,jdbcType=INTEGER},
-      </if>
-      <if test="relatedId != null" >
-        #{relatedId,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null" >
-        #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="loveCount != null" >
-        #{loveCount,jdbcType=INTEGER},
-      </if>
-      <if test="dislikeCount != null" >
-        #{dislikeCount,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="online.rubick.applications.entity.rubick.Files" >
-    update files
-    <set >
-      <if test="fileName != null" >
-        file_name = #{fileName,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
-        type = #{type,jdbcType=CHAR},
-      </if>
-      <if test="groupId != null" >
-        group_id = #{groupId,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=CHAR},
-      </if>
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="extension != null" >
-        extension = #{extension,jdbcType=VARCHAR},
-      </if>
-      <if test="fileUrl != null" >
-        file_url = #{fileUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="size != null" >
-        size = #{size,jdbcType=INTEGER},
-      </if>
-      <if test="relatedId != null" >
-        related_id = #{relatedId,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null" >
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="loveCount != null" >
-        love_count = #{loveCount,jdbcType=INTEGER},
-      </if>
-      <if test="dislikeCount != null" >
-        dislike_count = #{dislikeCount,jdbcType=INTEGER},
-      </if>
-    </set>
-    where file_code = #{fileCode,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="online.rubick.applications.entity.rubick.Files" >
-    update files
-    set file_name = #{fileName,jdbcType=VARCHAR},
-      type = #{type,jdbcType=CHAR},
-      group_id = #{groupId,jdbcType=VARCHAR},
-      status = #{status,jdbcType=CHAR},
-      user_id = #{userId,jdbcType=VARCHAR},
-      extension = #{extension,jdbcType=VARCHAR},
-      file_url = #{fileUrl,jdbcType=VARCHAR},
-      size = #{size,jdbcType=INTEGER},
-      related_id = #{relatedId,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      love_count = #{loveCount,jdbcType=INTEGER},
-      dislike_count = #{dislikeCount,jdbcType=INTEGER}
-    where file_code = #{fileCode,jdbcType=VARCHAR}
-  </update>
+<mapper namespace="online.rubick.applications.dao.rubick.FilesMapper">
+	<resultMap id="BaseResultMap"
+		type="online.rubick.applications.entity.rubick.Files">
+		<id column="file_code" property="fileCode" jdbcType="VARCHAR" />
+		<result column="file_name" property="fileName" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="CHAR" />
+		<result column="group_id" property="groupId" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="CHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="extension" property="extension" jdbcType="VARCHAR" />
+		<result column="file_url" property="fileUrl" jdbcType="VARCHAR" />
+		<result column="size" property="size" jdbcType="INTEGER" />
+		<result column="related_id" property="relatedId" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="love_count" property="loveCount" jdbcType="INTEGER" />
+		<result column="dislike_count" property="dislikeCount"
+			jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		file_code, file_name, type, group_id, status, user_id, extension, file_url,
+		size,
+		related_id, title, remark, create_time, update_time, love_count, dislike_count
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from files
+		where file_code = #{fileCode,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from files
+		where file_code = #{fileCode,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="online.rubick.applications.entity.rubick.Files">
+		insert into files (file_code, file_name, type,
+		group_id, status, user_id,
+		extension, file_url, size,
+		related_id, title, remark,
+		create_time, update_time, love_count,
+		dislike_count)
+		values (#{fileCode,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR},
+		#{type,jdbcType=CHAR},
+		#{groupId,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{userId,jdbcType=VARCHAR},
+		#{extension,jdbcType=VARCHAR}, #{fileUrl,jdbcType=VARCHAR},
+		#{size,jdbcType=INTEGER},
+		#{relatedId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+		#{loveCount,jdbcType=INTEGER},
+		#{dislikeCount,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="online.rubick.applications.entity.rubick.Files">
+		insert into files
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="fileCode != null">
+				file_code,
+			</if>
+			<if test="fileName != null">
+				file_name,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="groupId != null">
+				group_id,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="extension != null">
+				extension,
+			</if>
+			<if test="fileUrl != null">
+				file_url,
+			</if>
+			<if test="size != null">
+				size,
+			</if>
+			<if test="relatedId != null">
+				related_id,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="loveCount != null">
+				love_count,
+			</if>
+			<if test="dislikeCount != null">
+				dislike_count,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="fileCode != null">
+				#{fileCode,jdbcType=VARCHAR},
+			</if>
+			<if test="fileName != null">
+				#{fileName,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=CHAR},
+			</if>
+			<if test="groupId != null">
+				#{groupId,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=CHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="extension != null">
+				#{extension,jdbcType=VARCHAR},
+			</if>
+			<if test="fileUrl != null">
+				#{fileUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="size != null">
+				#{size,jdbcType=INTEGER},
+			</if>
+			<if test="relatedId != null">
+				#{relatedId,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="loveCount != null">
+				#{loveCount,jdbcType=INTEGER},
+			</if>
+			<if test="dislikeCount != null">
+				#{dislikeCount,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="online.rubick.applications.entity.rubick.Files">
+		update files
+		<set>
+			<if test="fileName != null">
+				file_name = #{fileName,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=CHAR},
+			</if>
+			<if test="groupId != null">
+				group_id = #{groupId,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=CHAR},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="extension != null">
+				extension = #{extension,jdbcType=VARCHAR},
+			</if>
+			<if test="fileUrl != null">
+				file_url = #{fileUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="size != null">
+				size = #{size,jdbcType=INTEGER},
+			</if>
+			<if test="relatedId != null">
+				related_id = #{relatedId,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="loveCount != null">
+				love_count = #{loveCount,jdbcType=INTEGER},
+			</if>
+			<if test="dislikeCount != null">
+				dislike_count = #{dislikeCount,jdbcType=INTEGER},
+			</if>
+		</set>
+		where file_code = #{fileCode,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="online.rubick.applications.entity.rubick.Files">
+		update files
+		set file_name = #{fileName,jdbcType=VARCHAR},
+		type = #{type,jdbcType=CHAR},
+		group_id = #{groupId,jdbcType=VARCHAR},
+		status = #{status,jdbcType=CHAR},
+		user_id = #{userId,jdbcType=VARCHAR},
+		extension = #{extension,jdbcType=VARCHAR},
+		file_url = #{fileUrl,jdbcType=VARCHAR},
+		size = #{size,jdbcType=INTEGER},
+		related_id = #{relatedId,jdbcType=VARCHAR},
+		title = #{title,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		love_count = #{loveCount,jdbcType=INTEGER},
+		dislike_count = #{dislikeCount,jdbcType=INTEGER}
+		where file_code = #{fileCode,jdbcType=VARCHAR}
+	</update>
+	<select id="selectByGroupId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from files
+		where group_id = #{groupId,jdbcType=VARCHAR}
+		and status != '0'
+	</select>
+
 </mapper>

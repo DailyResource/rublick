@@ -2,7 +2,7 @@ package online.rubick.applications.exception;
 
 import org.springframework.core.NestedRuntimeException;
 
-import online.rubick.applications.entity.enums.EnumUnit;
+import online.rubick.applications.enums.sys.EnumUnit;
 
 public class ApplicationException extends NestedRuntimeException implements ExceptionInfoGetter {
 

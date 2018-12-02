@@ -8,6 +8,7 @@ CREATE TABLE `files_type` (
 CREATE TABLE `files_group` (
   `group_id` varchar(20) NOT NULL COMMENT '分组标识',
   `group_name` varchar(20) DEFAULT NULL COMMENT '分组名称',
+  `file_code` varchar(20) DEFAULT NULL COMMENT '封面图片',
   `user_id` varchar(20) DEFAULT NULL COMMENT '所属用户id',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',

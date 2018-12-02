@@ -1,5 +1,5 @@
 
-package online.rubick.applications.entity.enums.typehandler;
+package online.rubick.applications.enums.typehandler;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
-import online.rubick.applications.entity.enums.EnumUnit;
+import online.rubick.applications.enums.sys.EnumUnit;
 
 public class EnumCodeTypeHandler<E extends Enum<E> & EnumUnit<E>> extends BaseTypeHandler<E> {
 

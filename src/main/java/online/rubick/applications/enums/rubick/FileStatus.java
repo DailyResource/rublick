@@ -1,20 +1,20 @@
-package online.rubick.applications.entity.enums;
+package online.rubick.applications.enums.rubick;
 
 import org.springframework.util.StringUtils;
 
-/**
- * 处理状态枚举类;
- */
-public enum UserState implements EnumUnit<UserState> {
-	INIT("0","初始化"),
-	ENABLE("1","正常"),
-	LOCKED("2","锁定"),
-	DELETED("9","已删除");
+import online.rubick.applications.enums.sys.EnumUnit;
+
+public enum FileStatus implements EnumUnit<FileStatus>{
+
+	DELETE("0","已刪除"),
+	ONLINE("1","上架"),
+	OFFLINE("2","下架"),
+	READY("3","筹备中");
 
 	private String code;
 	private String desc;
 	
-	private UserState(String code,String desc){
+	private FileStatus(String code,String desc){
 		this.code = code;
 		this.desc = desc;
 	}
@@ -29,16 +29,15 @@ public enum UserState implements EnumUnit<UserState> {
 		return desc;
 	}
 
-	public static UserState getEnumByCode(String code) {
+	public static FileStatus getEnumByCode(String code) {
 		if (StringUtils.isEmpty(code)) {
             return null;
         }
-        for (UserState element : UserState.values()) {
+        for (FileStatus element : FileStatus.values()) {
             if (code.equals(element.getCode())) {
                 return element;
             }
         }
         return null;
 	}
-
 }

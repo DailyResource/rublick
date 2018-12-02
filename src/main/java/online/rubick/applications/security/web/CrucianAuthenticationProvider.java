@@ -30,10 +30,10 @@ import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import online.rubick.applications.entity.enums.UserState;
 import online.rubick.applications.entity.sys.SysRole;
 import online.rubick.applications.entity.sys.SysUser;
 import online.rubick.applications.entity.sys.SysUserRole;
+import online.rubick.applications.enums.sys.UserState;
 import online.rubick.applications.security.authc.Account;
 import online.rubick.applications.service.SysRoleService;
 import online.rubick.applications.service.SysUserRoleService;

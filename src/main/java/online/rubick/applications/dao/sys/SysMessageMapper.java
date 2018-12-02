@@ -7,8 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import online.rubick.applications.Query.MessageManagementQuery;
 import online.rubick.applications.entity.sys.SysMessage;
+import online.rubick.applications.query.MessageManagementQuery;
 import online.rubick.applications.vo.sys.MessageVo;
 
 @Repository

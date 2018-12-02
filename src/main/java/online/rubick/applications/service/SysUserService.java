@@ -16,12 +16,12 @@ import org.springframework.stereotype.Service;
 
 import online.rubick.applications.dao.sys.SysUserLogMapper;
 import online.rubick.applications.dao.sys.SysUserMapper;
-import online.rubick.applications.entity.enums.UserState;
-import online.rubick.applications.entity.enums.YesOrNo;
 import online.rubick.applications.entity.sys.SysRole;
 import online.rubick.applications.entity.sys.SysUser;
 import online.rubick.applications.entity.sys.SysUserLog;
 import online.rubick.applications.entity.sys.SysUserRole;
+import online.rubick.applications.enums.sys.UserState;
+import online.rubick.applications.enums.sys.YesOrNo;
 import online.rubick.applications.util.IdUtil;
 import online.rubick.applications.vo.sys.UserVO;
 

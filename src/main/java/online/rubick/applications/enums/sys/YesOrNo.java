@@ -1,4 +1,4 @@
-package online.rubick.applications.entity.enums;
+package online.rubick.applications.enums.sys;
 
 /**
  * 可用枚举类;

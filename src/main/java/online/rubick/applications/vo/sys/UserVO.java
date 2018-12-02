@@ -7,8 +7,9 @@ import java.util.List;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import online.rubick.applications.entity.enums.UserState;
-import online.rubick.applications.entity.enums.YesOrNo;
+
+import online.rubick.applications.enums.sys.UserState;
+import online.rubick.applications.enums.sys.YesOrNo;
 import online.rubick.applications.security.authc.Account;
 
 import io.swagger.annotations.ApiModel;

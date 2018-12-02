@@ -8,8 +8,8 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import online.rubick.applications.entity.enums.UserState;
-import online.rubick.applications.entity.enums.YesOrNo;
+import online.rubick.applications.enums.sys.UserState;
+import online.rubick.applications.enums.sys.YesOrNo;
 
 public class SysUser implements Serializable,UserDetails{
 	//********************

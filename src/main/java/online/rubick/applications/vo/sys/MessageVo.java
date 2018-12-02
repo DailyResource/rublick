@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import online.rubick.applications.Query.PageQuery;
+import online.rubick.applications.query.PageQuery;
 
 @ApiModel(description = "消息")
 public class MessageVo extends PageQuery {

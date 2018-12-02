@@ -31,10 +31,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import online.rubick.applications.Query.MessageManagementQuery;
-import online.rubick.applications.entity.enums.MessageStatus;
 import online.rubick.applications.entity.sys.SysUser;
+import online.rubick.applications.enums.sys.MessageStatus;
 import online.rubick.applications.exception.ApplicationException;
+import online.rubick.applications.query.MessageManagementQuery;
 import online.rubick.applications.security.annotation.SessionAccount;
 import online.rubick.applications.service.SysMessageService;
 import online.rubick.applications.service.SysUserService;

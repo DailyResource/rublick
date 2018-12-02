@@ -1,35 +1,60 @@
-package online.rubick.applications.controller.file;
+package online.rubick.applications.controller.wx;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import online.rubick.applications.entity.rubick.Files;
+import online.rubick.applications.service.rubick.FilesService;
+import online.rubick.applications.vo.rubick.FilesVO;
 
+@Api(description = "文件管理")
 @RestController
+@RequestMapping("/file")
+@ResponseBody
 public class FileController {
 
+	@Autowired
+	private FilesService filesService;
+
+	@ApiOperation(value = "获取分组", notes = "获取分组")
+	@GetMapping(value = "/getPhotoList")
+	public List<FilesVO> getPhoto(@RequestParam("groupId") String groupId) {
+		List<Files> filesList = filesService.findByGroupId(groupId);
+		List<FilesVO> list =new ArrayList<>();
+		for (Files files : filesList) {
+			FilesVO vo =new FilesVO();
+			BeanUtils.copyProperties(files, vo);
+			list.add(vo);
+		}
+		return list;
+	}
+
 	@ApiOperation(value = "图片展示", notes = "图片展示")
-	@GetMapping(value = "/downloadPhoto")
-	public void downloadHeadPhoto(HttpServletResponse response, HttpServletRequest request,
+	@GetMapping(value = "/getPhoto")
+	public void getPhoto(HttpServletResponse response, HttpServletRequest request,
 			@RequestParam("photoPath") String photoPath) throws Exception {
 
 		if (StringUtils.isEmpty(photoPath)) {
@@ -92,7 +117,7 @@ public class FileController {
 			}
 		}
 	}
-	
+
 	@ApiOperation(value = "上传多个文件", notes = "上传多个文件")
 	@PostMapping(value = "/uploads")
 	public void handleFileUpload(HttpServletRequest request) {

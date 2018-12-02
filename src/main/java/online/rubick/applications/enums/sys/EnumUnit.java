@@ -1,4 +1,4 @@
-package online.rubick.applications.entity.enums;
+package online.rubick.applications.enums.sys;
 
 /**
  * Enum 接口,标准化系统内所有Enum的读取方式;

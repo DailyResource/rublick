@@ -1,8 +1,8 @@
-package online.rubick.applications.entity.enums.typehandler;
+package online.rubick.applications.enums.typehandler;
 
 import org.apache.ibatis.type.MappedTypes;
 
-import online.rubick.applications.entity.enums.UserState;
+import online.rubick.applications.enums.sys.UserState;
 
 /**
  * 为适配MyBatis;定向Useable枚举类的读取;
