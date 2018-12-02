@@ -4,9 +4,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class demoController {
+public class GroupController {
 
-	@GetMapping("hello")
+	@GetMapping("group")
 	public String hello() {
 		return "Hello word!";
 	}
