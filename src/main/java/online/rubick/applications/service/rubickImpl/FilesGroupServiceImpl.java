@@ -37,7 +37,7 @@ public class FilesGroupServiceImpl implements FilesGroupService{
 
 	@Override
 	public List<FilesGroup> getAll() {
-		return null;
+		return mapper.getAll();
 	}
 	
 }

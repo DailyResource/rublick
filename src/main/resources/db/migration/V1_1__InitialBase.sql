@@ -32,7 +32,7 @@ CREATE TABLE `files` (
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   `love_count` int(11) DEFAULT NULL COMMENT '喜欢的人数',
   `dislike_count` int(11) DEFAULT NULL COMMENT '不喜欢的人数',
-  PRIMARY KEY (`id`) 
+  PRIMARY KEY (`file_code`) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文件';
 
 CREATE TABLE `files_favorite` (
