@@ -8,6 +8,8 @@ public class FilesGroup implements Serializable {
 
     private String groupName;
 
+    private String fileCode;
+
     private String userId;
 
     private Date createTime;
@@ -32,6 +34,14 @@ public class FilesGroup implements Serializable {
 
     public void setGroupName(String groupName) {
         this.groupName = groupName == null ? null : groupName.trim();
+    }
+
+    public String getFileCode() {
+        return fileCode;
+    }
+
+    public void setFileCode(String fileCode) {
+        this.fileCode = fileCode == null ? null : fileCode.trim();
     }
 
     public String getUserId() {
@@ -80,6 +90,7 @@ public class FilesGroup implements Serializable {
         FilesGroup other = (FilesGroup) that;
         return (this.getGroupId() == null ? other.getGroupId() == null : this.getGroupId().equals(other.getGroupId()))
             && (this.getGroupName() == null ? other.getGroupName() == null : this.getGroupName().equals(other.getGroupName()))
+            && (this.getFileCode() == null ? other.getFileCode() == null : this.getFileCode().equals(other.getFileCode()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
@@ -92,6 +103,7 @@ public class FilesGroup implements Serializable {
         int result = 1;
         result = prime * result + ((getGroupId() == null) ? 0 : getGroupId().hashCode());
         result = prime * result + ((getGroupName() == null) ? 0 : getGroupName().hashCode());
+        result = prime * result + ((getFileCode() == null) ? 0 : getFileCode().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
@@ -107,6 +119,7 @@ public class FilesGroup implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", groupId=").append(groupId);
         sb.append(", groupName=").append(groupName);
+        sb.append(", fileCode=").append(fileCode);
         sb.append(", userId=").append(userId);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);

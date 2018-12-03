@@ -39,13 +39,15 @@
         </javaClientGenerator>
         
         <!-- 要生成哪些表 -->
+       <table tableName="files_group" domainObjectName="FilesGroup" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableCountByExample="false" />
+       <!-- 
        <table tableName="area" domainObjectName="Area" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableCountByExample="false" />
        <table tableName="files" domainObjectName="Files" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableCountByExample="false" />
        <table tableName="files_comment" domainObjectName="FilesComment" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableCountByExample="false" />
        <table tableName="files_favorite" domainObjectName="FilesFavorite" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableCountByExample="false" />
-       <table tableName="files_group" domainObjectName="FilesGroup" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableCountByExample="false" />
        <table tableName="files_type" domainObjectName="FilesType" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableCountByExample="false" />
        <table tableName="user_wechat" domainObjectName="UserWechat" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableCountByExample="false" />
-    </context>
+  -->   
+  </context>
        
 </generatorConfiguration>
