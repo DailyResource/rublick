@@ -32,7 +32,7 @@
         <sqlMapGenerator targetPackage="mybatis.rubick" targetProject="src/main/resources">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
-        
+          
         <!--自动生成的*Mapper.java存放路径 -->
         <javaClientGenerator type="XMLMAPPER" targetPackage="online.rubick.applications.dao.rubick" targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
