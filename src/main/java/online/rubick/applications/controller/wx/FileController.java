@@ -62,7 +62,6 @@ public class FileController {
 		switch (photoType) {
 		case "0":
 			getPhotoByPrefix(fileUrl, "small", response, request);
-
 			break;
 		default:
 			getPhotoByPrefix(fileUrl, "big", response, request);
