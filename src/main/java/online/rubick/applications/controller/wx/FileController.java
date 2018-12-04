@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +39,15 @@ import online.rubick.applications.vo.rubick.FilesVO;
 @ResponseBody
 public class FileController {
 
+	@Value("${file.prefix}")
+	private String prefix;
+
+	@Value("${file.prefixSecondSmall}")
+	private String prefixSecondSmall;
+
+	@Value("${file.prefixSecondBig}")
+	private String prefixSecondBig;
+
 	@Autowired
 	private FilesService filesService;
 
@@ -56,15 +66,15 @@ public class FileController {
 	}
 
 	@ApiOperation(value = "图片展示")
-	@GetMapping(value = "/getPhotoGroup")
+	@GetMapping(value = "/getPhoto")
 	public void getPhoto(HttpServletResponse response, HttpServletRequest request,
 			@RequestParam("fileUrl") String fileUrl, @RequestParam("photoType") String photoType) {
 		switch (photoType) {
 		case "0":
-			getPhotoByPrefix(fileUrl, "small", response, request);
+			getPhotoByPrefix(fileUrl, prefixSecondSmall, response, request);
 			break;
 		default:
-			getPhotoByPrefix(fileUrl, "big", response, request);
+			getPhotoByPrefix(fileUrl, prefixSecondBig, response, request);
 			break;
 		}
 	}
@@ -72,7 +82,6 @@ public class FileController {
 	@SuppressWarnings("resource")
 	private void getPhotoByPrefix(String fileUrl, String filePrefixSecond, HttpServletResponse response,
 			HttpServletRequest request) {
-		String filePrefix = "/wx/images/" + filePrefixSecond + "/";
 		if (StringUtils.isEmpty(fileUrl)) {
 			try {
 				response.setCharacterEncoding("utf-8");
@@ -87,7 +96,7 @@ public class FileController {
 			response.setContentType("image/jpeg");
 			try {
 				ServletOutputStream os = response.getOutputStream();
-				FileInputStream fis = new FileInputStream(filePrefix + fileUrl);
+				FileInputStream fis = new FileInputStream(prefix + filePrefixSecond + "/" + fileUrl);
 				os = response.getOutputStream();
 				int count = 0;
 				byte[] buffer = new byte[1024];

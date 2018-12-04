@@ -36,3 +36,7 @@ SMS:
     FORGETPASSWORD: SMS_125016994
     WARN: SMS_139233533
   message: false
+file: 
+  prefix: "/wx/images"
+  prefixSecondSmall: "/small"
+  prefixSecondBig: "/big"
