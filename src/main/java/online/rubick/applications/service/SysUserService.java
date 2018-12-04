@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,6 @@ import online.rubick.applications.entity.sys.SysUserLog;
 import online.rubick.applications.entity.sys.SysUserRole;
 import online.rubick.applications.enums.sys.UserState;
 import online.rubick.applications.enums.sys.YesOrNo;
-import online.rubick.applications.util.IdUtil;
 import online.rubick.applications.vo.sys.UserVO;
 
 /**
@@ -48,7 +48,7 @@ public class SysUserService {
 	}
 
 	public boolean createUser(SysUser user) {
-		user.setUserId(IdUtil.getId() + "");
+		user.setUserId(UUID.randomUUID()+"");
 		user.setCreateDate(Calendar.getInstance().getTime());
 		user.setState(UserState.INIT);
 		PasswordEncoder passwordEncode = new StandardPasswordEncoder();
@@ -58,7 +58,7 @@ public class SysUserService {
 		user.setPassword(encode);	
 		//用户角色绑定
         SysUserRole sur = new SysUserRole();
-        sur.setId(String.valueOf(IdUtil.getId()));
+        sur.setId(UUID.randomUUID()+"");
         sur.setUserId(user.getUserId());
         sur.setRoleId(user.getRole());
         sysUserRoleService.save(sur);    
@@ -79,7 +79,7 @@ public class SysUserService {
 
 		SysUserLog userLog = new SysUserLog();
 		userLog.setUserId(user.getUserId());
-		userLog.setLogId(Long.toString(IdUtil.getId()));
+		userLog.setLogId(UUID.randomUUID()+"");
 		userLog.setLogTime(user.getLoginTime());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		userLog.setAction("在" + sdf.format(user.getLoginTime()) + "登录今创集团设备监控系统。登录IP为" + user.getLoginIp());
@@ -96,7 +96,7 @@ public class SysUserService {
 
 		SysUserLog userLog = new SysUserLog();
 		userLog.setUserId(user.getUserId());
-		userLog.setLogId(Long.toString(IdUtil.getId()));
+		userLog.setLogId(UUID.randomUUID()+"");
 		Date curTime = Calendar.getInstance().getTime();
 		userLog.setLogTime(curTime);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
