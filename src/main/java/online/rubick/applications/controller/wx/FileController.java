@@ -3,6 +3,7 @@ package online.rubick.applications.controller.wx;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import online.rubick.applications.entity.rubick.Files;
 import online.rubick.applications.enums.rubick.FileStatus;
+import online.rubick.applications.exception.ApplicationException;
 import online.rubick.applications.service.rubick.FilesService;
 import online.rubick.applications.vo.rubick.FilesVO;
 
@@ -44,9 +46,9 @@ public class FileController {
 	@GetMapping(value = "/getPhotoList")
 	public List<FilesVO> getPhoto(@RequestParam("groupId") String groupId) {
 		List<Files> filesList = filesService.findByGroupId(groupId);
-		List<FilesVO> list =new ArrayList<>();
+		List<FilesVO> list = new ArrayList<>();
 		for (Files files : filesList) {
-			FilesVO vo =new FilesVO();
+			FilesVO vo = new FilesVO();
 			BeanUtils.copyProperties(files, vo);
 			vo.setStatusName(FileStatus.getEnumByCode(files.getStatus()).getDescription());
 			list.add(vo);
@@ -57,20 +59,31 @@ public class FileController {
 	@ApiOperation(value = "图片展示")
 	@GetMapping(value = "/getPhoto")
 	public void getPhoto(HttpServletResponse response, HttpServletRequest request,
-			@RequestParam("photoPath") String photoPath) throws Exception {
-		if (StringUtils.isEmpty(photoPath)) {
+			@RequestParam("fileUrl") String fileUrl) throws IOException {
+		if (StringUtils.isEmpty(fileUrl)) {
 			response.setCharacterEncoding("utf-8");
 			response.getWriter().print("没有相关的图片信息");
 		} else {
-			byte[] downloadFile = new byte[1024];
 			response.setHeader("Cache-Control", "no-store");
 			response.setHeader("Pragma", "no-cache");
 			response.setDateHeader("Expires", 0);
 			response.setContentType("image/jpeg");
-			ServletOutputStream responseOutputStream = response.getOutputStream();
-			responseOutputStream.write(downloadFile);
-			responseOutputStream.flush();
-			responseOutputStream.close();
+			ServletOutputStream os = response.getOutputStream();
+			FileInputStream fis = null;
+			try {
+				fis = new FileInputStream(fileUrl);
+				os = response.getOutputStream();
+				int count = 0;
+				byte[] buffer = new byte[1024];
+				while ((count = fis.read(buffer)) != -1) {
+					os.write(buffer, 0, count);
+					os.flush();
+				}
+			} catch (Exception e) {
+				throw new ApplicationException("图片出错");
+			} finally {
+				os.close();
+			}
 		}
 	}
 
