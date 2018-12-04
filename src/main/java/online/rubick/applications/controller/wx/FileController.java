@@ -5,15 +5,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,11 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import online.rubick.applications.entity.rubick.Files;
-import online.rubick.applications.enums.rubick.FileStatus;
 import online.rubick.applications.exception.ApplicationException;
-import online.rubick.applications.service.rubick.FilesService;
-import online.rubick.applications.vo.rubick.FilesVO;
 
 @Api(description = "文件管理")
 @RestController
@@ -47,23 +40,6 @@ public class FileController {
 
 	@Value("${file.prefixSecondBig}")
 	private String prefixSecondBig;
-
-	@Autowired
-	private FilesService filesService;
-
-	@ApiOperation(value = "根据分组获取图片集合")
-	@GetMapping(value = "/getPhotoList")
-	public List<FilesVO> getPhoto(@RequestParam("groupId") String groupId) {
-		List<Files> filesList = filesService.findByGroupId(groupId);
-		List<FilesVO> list = new ArrayList<>();
-		for (Files files : filesList) {
-			FilesVO vo = new FilesVO();
-			BeanUtils.copyProperties(files, vo);
-			vo.setStatusName(FileStatus.getEnumByCode(files.getStatus()).getDescription());
-			list.add(vo);
-		}
-		return list;
-	}
 
 	@ApiOperation(value = "图片展示")
 	@GetMapping(value = "/getPhoto")
