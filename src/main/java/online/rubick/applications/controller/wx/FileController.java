@@ -3,7 +3,6 @@ package online.rubick.applications.controller.wx;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,21 +56,39 @@ public class FileController {
 	}
 
 	@ApiOperation(value = "图片展示")
-	@GetMapping(value = "/getPhoto")
+	@GetMapping(value = "/getPhotoGroup")
 	public void getPhoto(HttpServletResponse response, HttpServletRequest request,
-			@RequestParam("fileUrl") String fileUrl) throws IOException {
+			@RequestParam("fileUrl") String fileUrl, @RequestParam("photoType") String photoType) {
+		switch (photoType) {
+		case "0":
+			getPhotoByPrefix(fileUrl, "small", response, request);
+
+			break;
+		default:
+			getPhotoByPrefix(fileUrl, "big", response, request);
+			break;
+		}
+	}
+
+	@SuppressWarnings("resource")
+	private void getPhotoByPrefix(String fileUrl, String filePrefixSecond, HttpServletResponse response,
+			HttpServletRequest request) {
+		String filePrefix = "/wx/images/" + filePrefixSecond + "/";
 		if (StringUtils.isEmpty(fileUrl)) {
-			response.setCharacterEncoding("utf-8");
-			response.getWriter().print("没有相关的图片信息");
+			try {
+				response.setCharacterEncoding("utf-8");
+				response.getWriter().print("没有相关的图片信息");
+			} catch (IOException e) {
+				throw new ApplicationException("没有相关的图片信息");
+			}
 		} else {
 			response.setHeader("Cache-Control", "no-store");
 			response.setHeader("Pragma", "no-cache");
 			response.setDateHeader("Expires", 0);
 			response.setContentType("image/jpeg");
-			ServletOutputStream os = response.getOutputStream();
-			FileInputStream fis = null;
 			try {
-				fis = new FileInputStream(fileUrl);
+				ServletOutputStream os = response.getOutputStream();
+				FileInputStream fis = new FileInputStream(filePrefix + fileUrl);
 				os = response.getOutputStream();
 				int count = 0;
 				byte[] buffer = new byte[1024];
@@ -81,8 +98,6 @@ public class FileController {
 				}
 			} catch (Exception e) {
 				throw new ApplicationException("图片出错");
-			} finally {
-				os.close();
 			}
 		}
 	}
