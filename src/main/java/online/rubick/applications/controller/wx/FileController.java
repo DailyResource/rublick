@@ -5,17 +5,21 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContextException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +28,14 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import online.rubick.applications.entity.rubick.Files;
+import online.rubick.applications.enums.rubick.FileStatus;
 import online.rubick.applications.exception.ApplicationException;
+import online.rubick.applications.service.rubick.FilesService;
+import online.rubick.applications.util.IdUtil;
 
 @Api(description = "文件管理")
 @RestController
@@ -41,69 +52,38 @@ public class FileController {
 	@Value("${file.prefixSecondBig}")
 	private String prefixSecondBig;
 
-	@ApiOperation(value = "图片展示")
-	@GetMapping(value = "/getPhoto")
-	public void getPhoto(HttpServletResponse response, HttpServletRequest request,
-			@RequestParam("fileUrl") String fileUrl, @RequestParam("photoType") String photoType) {
-		switch (photoType) {
-		case "0":
-			getPhotoByPrefix(fileUrl, prefixSecondSmall, response, request);
-			break;
-		default:
-			getPhotoByPrefix(fileUrl, prefixSecondBig, response, request);
-			break;
-		}
-	}
+	@Autowired
+	private FilesService filesService;
 
-	@SuppressWarnings("resource")
-	private void getPhotoByPrefix(String fileUrl, String filePrefixSecond, HttpServletResponse response,
-			HttpServletRequest request) {
-		if (StringUtils.isEmpty(fileUrl)) {
-			try {
-				response.setCharacterEncoding("utf-8");
-				response.getWriter().print("没有相关的图片信息");
-			} catch (IOException e) {
-				throw new ApplicationException("没有相关的图片信息");
-			}
-		} else {
-			response.setHeader("Cache-Control", "no-store");
-			response.setHeader("Pragma", "no-cache");
-			response.setDateHeader("Expires", 0);
-			response.setContentType("image/jpeg");
-			try {
-				ServletOutputStream os = response.getOutputStream();
-				FileInputStream fis = new FileInputStream(prefix + filePrefixSecond + "/" + fileUrl);
-				os = response.getOutputStream();
-				int count = 0;
-				byte[] buffer = new byte[1024];
-				while ((count = fis.read(buffer)) != -1) {
-					os.write(buffer, 0, count);
-					os.flush();
-				}
-			} catch (Exception e) {
-				throw new ApplicationException("图片出错");
-			}
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "请求成功") })
+	@ApiOperation(value = "上传文件", notes = "上传成功后，服务器将返回文件的地址信息。")
+	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+	@ResponseBody
+	public void uploadFile(@ApiParam(name = "file", value = "文件") MultipartFile file) throws Exception {
+		// 1.判断获取的文件信息是否为空
+		if (StringUtils.isEmpty(file)) {
+			throw new ApplicationContextException("读取文件发生错误");
 		}
-	}
+		Files fileInsert = new Files();
+		fileInsert.setFileCode(IdUtil.getId() + "");
+		fileInsert.setFileName(file.getOriginalFilename());
+		fileInsert.setExtension(file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1));
+		fileInsert.setFileUrl(prefix + prefixSecondBig + "/" + file.getOriginalFilename());
+		fileInsert.setStatus(FileStatus.READY.getCode());
+		fileInsert.setSize(file.getSize());
+		fileInsert.setCreateTime(new Date());
+		fileInsert.setUpdateTime(new Date());
+		filesService.save(fileInsert);
 
-	@ApiOperation(value = "上传文件")
-	@PostMapping(value = "/upload")
-	public void testUploadFile(HttpServletRequest req, MultipartHttpServletRequest multiReq) {
-		// 获取上传文件的路径
-		String uploadFilePath = multiReq.getFile("file1").getOriginalFilename();
-		System.out.println("uploadFlePath:" + uploadFilePath);
-		// 截取上传文件的文件名
-		String uploadFileName = uploadFilePath.substring(uploadFilePath.lastIndexOf('\\') + 1,
-				uploadFilePath.indexOf('.'));
-		System.out.println("multiReq.getFile()" + uploadFileName);
-		// 截取上传文件的后缀
-		String uploadFileSuffix = uploadFilePath.substring(uploadFilePath.indexOf('.') + 1, uploadFilePath.length());
-		System.out.println("uploadFileSuffix:" + uploadFileSuffix);
+		File fileSave = new File(fileInsert.getFileUrl());
+		if (!fileSave.getParentFile().exists()) { // 如果文件的目录不存在
+			fileSave.getParentFile().mkdirs(); // 创建目录
+		}
 		FileOutputStream fos = null;
 		FileInputStream fis = null;
 		try {
-			fis = (FileInputStream) multiReq.getFile("file1").getInputStream();
-			fos = new FileOutputStream(new File(".//uploadFiles//" + uploadFileName + ".") + uploadFileSuffix);
+			fis = (FileInputStream) file.getInputStream();
+			fos = new FileOutputStream(fileSave);
 			byte[] temp = new byte[1024];
 			int i = fis.read(temp);
 			while (i != -1) {
@@ -131,6 +111,45 @@ public class FileController {
 		}
 	}
 
+	@ApiOperation(value = "图片展示")
+	@GetMapping(value = "/getPhoto")
+	public void getPhoto(HttpServletResponse response, HttpServletRequest request,
+			@RequestParam("fileCode") String fileCode) {
+		Files file = filesService.findById(fileCode);
+		getPhotoByPrefix(file.getFileUrl(), response, request);
+	}
+
+	@SuppressWarnings("resource")
+	private void getPhotoByPrefix(String fileUrl, HttpServletResponse response, HttpServletRequest request) {
+		if (StringUtils.isEmpty(fileUrl)) {
+			try {
+				response.setCharacterEncoding("utf-8");
+				response.getWriter().print("没有相关的图片信息");
+			} catch (IOException e) {
+				throw new ApplicationException("没有相关的图片信息");
+			}
+		} else {
+			response.setHeader("Cache-Control", "no-store");
+			response.setHeader("Pragma", "no-cache");
+			response.setDateHeader("Expires", 0);
+			response.setContentType("image/jpeg");
+			try {
+				ServletOutputStream os = response.getOutputStream();
+				FileInputStream fis = new FileInputStream(fileUrl);
+				os = response.getOutputStream();
+				int count = 0;
+				byte[] buffer = new byte[1024];
+				while ((count = fis.read(buffer)) != -1) {
+					os.write(buffer, 0, count);
+					os.flush();
+				}
+			} catch (Exception e) {
+				throw new ApplicationException("图片出错");
+			}
+		}
+	}
+
+	
 	@ApiOperation(value = "上传多个文件")
 	@PostMapping(value = "/uploads")
 	public void handleFileUpload(HttpServletRequest request) {
