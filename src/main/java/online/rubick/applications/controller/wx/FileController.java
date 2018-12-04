@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +35,7 @@ import online.rubick.applications.entity.rubick.Files;
 import online.rubick.applications.enums.rubick.FileStatus;
 import online.rubick.applications.exception.ApplicationException;
 import online.rubick.applications.service.rubick.FilesService;
+import online.rubick.applications.util.IdUtil;
 
 @Api(description = "文件管理")
 @RestController
@@ -65,10 +65,11 @@ public class FileController {
 			throw new ApplicationContextException("读取文件发生错误");
 		}
 		Files fileInsert = new Files();
-		fileInsert.setFileCode(UUID.randomUUID()+"");
-		fileInsert.setFileName(file.getOriginalFilename());
+		fileInsert.setFileCode(IdUtil.getId());
+		fileInsert.setFileName(IdUtil.getId());
 		fileInsert.setExtension(file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1));
-		fileInsert.setFileUrl(prefix + prefixSecondBig + "/" + file.getOriginalFilename());
+		fileInsert.setFileUrl(
+				prefix + prefixSecondBig + "/" + fileInsert.getFileName() + "." + fileInsert.getExtension());
 		fileInsert.setStatus(FileStatus.READY.getCode());
 		fileInsert.setSize(file.getSize());
 		fileInsert.setCreateTime(new Date());
@@ -149,7 +150,6 @@ public class FileController {
 		}
 	}
 
-	
 	@ApiOperation(value = "上传多个文件")
 	@PostMapping(value = "/uploads")
 	public void handleFileUpload(HttpServletRequest request) {

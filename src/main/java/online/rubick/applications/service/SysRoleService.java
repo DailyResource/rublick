@@ -2,7 +2,6 @@ package online.rubick.applications.service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Service;
 import online.rubick.applications.dao.sys.SysRoleMapper;
 import online.rubick.applications.entity.sys.SysMenu;
 import online.rubick.applications.entity.sys.SysRole;
+import online.rubick.applications.util.IdUtil;
 
 @Service
 public class SysRoleService {
@@ -24,7 +24,7 @@ public class SysRoleService {
 
 	public int save(SysRole entity) {
 		if (StringUtils.isEmpty(entity.getId())) {
-			entity.setId(UUID.randomUUID()+"");
+			entity.setId(IdUtil.getId());
 		}
 		return sysRoleMapper.insertSelective(entity);
 	}
