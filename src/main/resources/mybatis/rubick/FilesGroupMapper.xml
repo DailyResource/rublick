@@ -4,13 +4,14 @@
   <resultMap id="BaseResultMap" type="online.rubick.applications.entity.rubick.FilesGroup" >
     <id column="group_id" property="groupId" jdbcType="VARCHAR" />
     <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    <result column="file_code" property="fileCode" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    group_id, group_name, user_id, create_time, update_time, remark
+    group_id, group_name, file_code, user_id, create_time, update_time, remark
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -23,12 +24,12 @@
     where group_id = #{groupId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="online.rubick.applications.entity.rubick.FilesGroup" >
-    insert into files_group (group_id, group_name, user_id, 
-      create_time, update_time, remark
-      )
-    values (#{groupId,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
-      )
+    insert into files_group (group_id, group_name, file_code, 
+      user_id, create_time, update_time, 
+      remark)
+    values (#{groupId,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR}, #{fileCode,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="online.rubick.applications.entity.rubick.FilesGroup" >
     insert into files_group
@@ -38,6 +39,9 @@
       </if>
       <if test="groupName != null" >
         group_name,
+      </if>
+      <if test="fileCode != null" >
+        file_code,
       </if>
       <if test="userId != null" >
         user_id,
@@ -59,6 +63,9 @@
       <if test="groupName != null" >
         #{groupName,jdbcType=VARCHAR},
       </if>
+      <if test="fileCode != null" >
+        #{fileCode,jdbcType=VARCHAR},
+      </if>
       <if test="userId != null" >
         #{userId,jdbcType=VARCHAR},
       </if>
@@ -79,6 +86,9 @@
       <if test="groupName != null" >
         group_name = #{groupName,jdbcType=VARCHAR},
       </if>
+      <if test="fileCode != null" >
+        file_code = #{fileCode,jdbcType=VARCHAR},
+      </if>
       <if test="userId != null" >
         user_id = #{userId,jdbcType=VARCHAR},
       </if>
@@ -97,13 +107,14 @@
   <update id="updateByPrimaryKey" parameterType="online.rubick.applications.entity.rubick.FilesGroup" >
     update files_group
     set group_name = #{groupName,jdbcType=VARCHAR},
+      file_code = #{fileCode,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       remark = #{remark,jdbcType=VARCHAR}
     where group_id = #{groupId,jdbcType=VARCHAR}
   </update>
-   <select id="getAll" resultMap="BaseResultMap"  >
+  <select id="getAll" resultMap="BaseResultMap"  >
     select 
     <include refid="Base_Column_List" />
     from files_group
