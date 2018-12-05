@@ -1,10 +1,15 @@
 server: 
-  port: 8001
+  port: 80
+  ssl: 
+    key-store: classpath:158jks.jks
+    key-store-password: I5KT38tE
+    key-store-type: JKS
+    key-alias: alias
 spring:
   application: 
     name: rubick
   datasource:
-    url: jdbc:mysql://172.17.0.2:3306/rubick?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/rubick?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: rubick
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
@@ -14,20 +19,10 @@ spring:
     multipart: 
       maxFileSize: 10MB
       maxRequestSize: 10MB
-#  redis:
-#    port: 6379
-#    database: 5
-#    timeout: 1800000
-#    pool:
-#      maxIdle: 100
-#      minIdle: 5
-#      maxActive: 1000
-#      maxWait: 3000
 logging:
   file: /opt/logs/${spring.application.name}
   level:
     com.letsiot.eam: debug
-    
 SMS:
   ACCESSKEYID: LTAIj6lGxp9lILBn
   ACCESSKEYSECRET: 95KOIj1ad0U8z2CSppJ47M06YFcrP4
