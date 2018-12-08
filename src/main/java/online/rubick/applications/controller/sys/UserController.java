@@ -10,6 +10,7 @@ import java.util.function.Consumer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.validator.constraints.NotBlank;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,12 +82,10 @@ public class UserController {
 		if (userInfo == null) {
 			throw new ApplicationException("登录信息异常");
 		}
-		// 3.验证用户的旧密码是否与数据库的密码一致
 		PasswordEncoder passwordEncode = new StandardPasswordEncoder();
 		// 先MD5加密，再由spring加密
-		
-		//String md5Encode = DigestUtils.md5Hex("123456");
-		String encode = passwordEncode.encode("123456");
+		String md5Encode = DigestUtils.md5Hex("rubick123456");
+		String encode = passwordEncode.encode(md5Encode);
 		userInfo.setPassword(encode);
 		// 4.记录修改密码的时间
 		userInfo.setChangePasswordTime(new Date());

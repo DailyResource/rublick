@@ -178,5 +178,5 @@ PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='人员角色';
 
-INSERT INTO `sys_user` (`user_id`,`login_id`,`name`,`mobile`,`email`,`password`,`state`,`create_date`,`login_time`,`login_ip`,`is_login`) VALUES ('1001','admin','系统管理员','','','03416b0bb55dceb339e6e1cad63e5bdc1425b102b9b9a6d91feac853d7f82547c5986e393e885243','1','2018-11-11','2018-11-22 10:22:54','','Y');
+INSERT INTO `sys_user` (`user_id`,`login_id`,`name`,`mobile`,`email`,`password`,`state`,`create_date`,`login_time`,`login_ip`,`is_login`) VALUES ('1001','rubick','超级管理员','','','dda7aeb29384dbac1bc3373bcd0dd038851a87b4e86eeba1f11eae358391abc779deafafbf181a85','1','2018-11-11','2018-11-22 10:22:54','','Y');
 INSERT INTO `sys_user_role`(`id`, `role_id`, `user_id`) VALUES ('1', '1', '1001');
