@@ -23,7 +23,7 @@ public class RubickApplication {
 		SpringApplication.run(RubickApplication.class, args);
 	}
 	
-    @Bean
+/*    @Bean
     public EmbeddedServletContainerFactory servletContainer() {
         TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory();
         tomcat.addAdditionalTomcatConnectors(createStandardConnector()); // 添加http
@@ -34,5 +34,5 @@ public class RubickApplication {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
         connector.setPort(8001);
         return connector;
-    }
+    }*/
 }
