@@ -1,5 +1,7 @@
 package online.rubick.applications.dao.rubick;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import online.rubick.applications.entity.rubick.FilesGroupDropIcon;
@@ -17,4 +19,6 @@ public interface FilesGroupDropIconMapper {
     int updateByPrimaryKeySelective(FilesGroupDropIcon record);
 
     int updateByPrimaryKey(FilesGroupDropIcon record);
+    
+    List<FilesGroupDropIcon> getAll();
 }

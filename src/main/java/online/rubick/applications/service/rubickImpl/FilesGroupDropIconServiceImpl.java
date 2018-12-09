@@ -37,7 +37,7 @@ public class FilesGroupDropIconServiceImpl implements FilesGroupDropIconService{
 
 	@Override
 	public List<FilesGroupDropIcon> getAll() {
-		return null;
+		return mapper.getAll();
 	}
 	
 }

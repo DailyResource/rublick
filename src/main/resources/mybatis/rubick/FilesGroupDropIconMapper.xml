@@ -114,4 +114,9 @@
       remark = #{remark,jdbcType=VARCHAR}
     where group_id = #{groupId,jdbcType=VARCHAR}
   </update>
+   <select id="getAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from files_group_drop_icon
+  </select>
 </mapper>
