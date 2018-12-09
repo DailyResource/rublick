@@ -1,4 +1,4 @@
-package online.rubick.applications.controller.wx;
+package online.rubick.applications.controller.web;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ import online.rubick.applications.vo.rubick.FilesVO;
 
 @Api(description = "分组管理")
 @RestController
-@RequestMapping("/wx/group")
+@RequestMapping("/web/group")
 @ResponseBody
 public class GroupController {
 	@Autowired
@@ -62,14 +62,31 @@ public class GroupController {
 		}
 		return list;
 	}
-
+	
+	@ApiOperation(value = "获取下落图标分组")
+	@GetMapping("getDropGroup")
+	public List<FilesGroupDropIconVO> getDropGroup() {
+		List<FilesGroupDropIcon> filesGroups = filesGroupDropIconService.getAll();
+		List<FilesGroupDropIconVO> list = new ArrayList<>();
+		for (FilesGroupDropIcon filesGroup : filesGroups) {
+			FilesGroupDropIconVO vo = new FilesGroupDropIconVO();
+			BeanUtils.copyProperties(filesGroup, vo);
+			list.add(vo);
+		}
+		return list;
+	}
+	
 	@ApiOperation(value = "获取下落图标")
 	@GetMapping("getDropIcon")
-	public FilesGroupDropIconVO getDropIcon() {
-		FilesGroupDropIcon filesGroup = filesGroupDropIconService.findById("0");
-		FilesGroupDropIconVO vo = new FilesGroupDropIconVO();
-		BeanUtils.copyProperties(filesGroup, vo);
-		return vo;
+	public List<FilesGroupDropIconVO> getDropIcon() {
+		List<FilesGroupDropIcon> filesGroups = filesGroupDropIconService.getAll();
+		List<FilesGroupDropIconVO> list = new ArrayList<>();
+		for (FilesGroupDropIcon filesGroup : filesGroups) {
+			FilesGroupDropIconVO vo = new FilesGroupDropIconVO();
+			BeanUtils.copyProperties(filesGroup, vo);
+			list.add(vo);
+		}
+		return list;
 	}
 
 }

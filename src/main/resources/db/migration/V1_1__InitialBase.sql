@@ -1,10 +1,3 @@
-CREATE TABLE `files_type` (
-  `file_type_code` varchar(20) NOT NULL COMMENT '类型标识',
-  `file_type_name` varchar(50) DEFAULT NULL COMMENT '类型名称',
-  `remark` varchar(1000) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`file_type_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文件类型';
-
 CREATE TABLE `files_group` (
   `group_id` varchar(20) NOT NULL COMMENT '分组标识',
   `group_name` varchar(20) DEFAULT NULL COMMENT '分组名称',
@@ -19,7 +12,6 @@ CREATE TABLE `files_group` (
 CREATE TABLE `files` (
   `file_code` varchar(20) NOT NULL COMMENT '文件标识',
   `file_name` varchar(50) DEFAULT NULL COMMENT '文件名',
-  `type` char(1) DEFAULT NULL COMMENT '文件类型',
   `group_id` varchar(20) DEFAULT NULL COMMENT '文件分组',
   `status` char(1) DEFAULT NULL DEFAULT '0' COMMENT '状态',
   `user_id` varchar(20) DEFAULT NULL COMMENT '所属用户id',
