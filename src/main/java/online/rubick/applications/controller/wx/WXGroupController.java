@@ -28,7 +28,7 @@ import online.rubick.applications.vo.rubick.FilesVO;
 @RestController
 @RequestMapping("/wx/group")
 @ResponseBody
-public class GroupController {
+public class WXGroupController {
 	@Autowired
 	private FilesGroupService filesGroupService;
 	@Autowired

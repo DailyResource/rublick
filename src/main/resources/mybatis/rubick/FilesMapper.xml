@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="online.rubick.applications.entity.rubick.Files" >
     <id column="file_code" property="fileCode" jdbcType="VARCHAR" />
     <result column="file_name" property="fileName" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="CHAR" />
     <result column="group_id" property="groupId" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="CHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
@@ -20,8 +19,8 @@
     <result column="dislike_count" property="dislikeCount" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    file_code, file_name, type, group_id, status, user_id, extension, file_url, size, 
-    related_id, title, remark, create_time, update_time, love_count, dislike_count
+    file_code, file_name, group_id, status, user_id, extension, file_url, size, related_id, 
+    title, remark, create_time, update_time, love_count, dislike_count
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -34,18 +33,18 @@
     where file_code = #{fileCode,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="online.rubick.applications.entity.rubick.Files" >
-    insert into files (file_code, file_name, type, 
-      group_id, status, user_id, 
-      extension, file_url, size, 
-      related_id, title, remark, 
-      create_time, update_time, love_count, 
-      dislike_count)
-    values (#{fileCode,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{type,jdbcType=CHAR}, 
-      #{groupId,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{userId,jdbcType=VARCHAR}, 
-      #{extension,jdbcType=VARCHAR}, #{fileUrl,jdbcType=VARCHAR}, #{size,jdbcType=BIGINT}, 
-      #{relatedId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{loveCount,jdbcType=INTEGER}, 
-      #{dislikeCount,jdbcType=INTEGER})
+    insert into files (file_code, file_name, group_id, 
+      status, user_id, extension, 
+      file_url, size, related_id, 
+      title, remark, create_time, 
+      update_time, love_count, dislike_count
+      )
+    values (#{fileCode,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{groupId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=CHAR}, #{userId,jdbcType=VARCHAR}, #{extension,jdbcType=VARCHAR}, 
+      #{fileUrl,jdbcType=VARCHAR}, #{size,jdbcType=BIGINT}, #{relatedId,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{loveCount,jdbcType=INTEGER}, #{dislikeCount,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="online.rubick.applications.entity.rubick.Files" >
     insert into files
@@ -55,9 +54,6 @@
       </if>
       <if test="fileName != null" >
         file_name,
-      </if>
-      <if test="type != null" >
-        type,
       </if>
       <if test="groupId != null" >
         group_id,
@@ -106,9 +102,6 @@
       <if test="fileName != null" >
         #{fileName,jdbcType=VARCHAR},
       </if>
-      <if test="type != null" >
-        #{type,jdbcType=CHAR},
-      </if>
       <if test="groupId != null" >
         #{groupId,jdbcType=VARCHAR},
       </if>
@@ -156,9 +149,6 @@
       <if test="fileName != null" >
         file_name = #{fileName,jdbcType=VARCHAR},
       </if>
-      <if test="type != null" >
-        type = #{type,jdbcType=CHAR},
-      </if>
       <if test="groupId != null" >
         group_id = #{groupId,jdbcType=VARCHAR},
       </if>
@@ -204,7 +194,6 @@
   <update id="updateByPrimaryKey" parameterType="online.rubick.applications.entity.rubick.Files" >
     update files
     set file_name = #{fileName,jdbcType=VARCHAR},
-      type = #{type,jdbcType=CHAR},
       group_id = #{groupId,jdbcType=VARCHAR},
       status = #{status,jdbcType=CHAR},
       user_id = #{userId,jdbcType=VARCHAR},
@@ -227,5 +216,5 @@
 		from files
 		where group_id = #{groupId,jdbcType=VARCHAR}
 		and status != '0'
-	</select>
+  </select>
 </mapper>

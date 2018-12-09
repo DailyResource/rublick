@@ -1,12 +1,12 @@
 package online.rubick.applications.controller.wx;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -17,14 +17,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,7 +39,7 @@ import online.rubick.applications.util.IdUtil;
 @RestController
 @RequestMapping("/wx/file")
 @ResponseBody
-public class FileController {
+public class WXFileController {
 
 	@Value("${file.prefix}")
 	private String prefix;
@@ -120,6 +118,50 @@ public class FileController {
 		getPhotoByPrefix(file.getFileUrl(), response, request);
 	}
 
+	
+	@ApiOperation(value = "图片下载")
+	@GetMapping(value = "/downloadPhoto")
+	public void downloadPhoto(HttpServletResponse response, HttpServletRequest request,
+			@RequestParam("fileCode") String fileCode) {
+		Files file = filesService.findById(fileCode);
+		if (StringUtils.isEmpty(file.getFileUrl())) {
+			try {
+				response.setCharacterEncoding("utf-8");
+				response.getWriter().print("没有相关的图片信息");
+			} catch (IOException e) {
+				throw new ApplicationException("没有相关的图片信息");
+			}
+		} else {
+			String fileName = file.getFileName()+"."+file.getExtension();
+			response.setContentType("application/force-download");// 设置强制下载不打开
+			try {
+				// 解决文件名乱码问题
+				String userAgent = request.getHeader("User-Agent");
+				if (userAgent.contains("MSIE") || userAgent.contains("Trident")) {
+					fileName = URLEncoder.encode(fileName, "UTF-8");
+				} else {
+					fileName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");
+				}
+			} catch (UnsupportedEncodingException e1) {
+				
+			}
+			response.setHeader("Content-disposition", "attachment; filename=" + fileName);
+			try {
+				ServletOutputStream os = response.getOutputStream();
+				FileInputStream fis = new FileInputStream(file.getFileUrl());
+				os = response.getOutputStream();
+				int count = 0;
+				byte[] buffer = new byte[1024];
+				while ((count = fis.read(buffer)) != -1) {
+					os.write(buffer, 0, count);
+					os.flush();
+				}
+			} catch (Exception e) {
+				throw new ApplicationException("图片出错");
+			}
+		}
+	}
+	
 	@SuppressWarnings("resource")
 	private void getPhotoByPrefix(String fileUrl, HttpServletResponse response, HttpServletRequest request) {
 		if (StringUtils.isEmpty(fileUrl)) {

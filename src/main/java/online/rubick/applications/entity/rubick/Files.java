@@ -8,8 +8,6 @@ public class Files implements Serializable {
 
     private String fileName;
 
-    private String type;
-
     private String groupId;
 
     private String status;
@@ -52,14 +50,6 @@ public class Files implements Serializable {
 
     public void setFileName(String fileName) {
         this.fileName = fileName == null ? null : fileName.trim();
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
     }
 
     public String getGroupId() {
@@ -180,7 +170,6 @@ public class Files implements Serializable {
         Files other = (Files) that;
         return (this.getFileCode() == null ? other.getFileCode() == null : this.getFileCode().equals(other.getFileCode()))
             && (this.getFileName() == null ? other.getFileName() == null : this.getFileName().equals(other.getFileName()))
-            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
             && (this.getGroupId() == null ? other.getGroupId() == null : this.getGroupId().equals(other.getGroupId()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
@@ -202,7 +191,6 @@ public class Files implements Serializable {
         int result = 1;
         result = prime * result + ((getFileCode() == null) ? 0 : getFileCode().hashCode());
         result = prime * result + ((getFileName() == null) ? 0 : getFileName().hashCode());
-        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         result = prime * result + ((getGroupId() == null) ? 0 : getGroupId().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
@@ -227,7 +215,6 @@ public class Files implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", fileCode=").append(fileCode);
         sb.append(", fileName=").append(fileName);
-        sb.append(", type=").append(type);
         sb.append(", groupId=").append(groupId);
         sb.append(", status=").append(status);
         sb.append(", userId=").append(userId);
