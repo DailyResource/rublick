@@ -115,7 +115,32 @@ public class WXFileController {
 	public void getPhoto(HttpServletResponse response, HttpServletRequest request,
 			@RequestParam("fileCode") String fileCode) {
 		Files file = filesService.findById(fileCode);
-		getPhotoByPrefix(file.getFileUrl(), response, request);
+		if (StringUtils.isEmpty(file.getFileUrl())) {
+			try {
+				response.setCharacterEncoding("utf-8");
+				response.getWriter().print("没有相关的图片信息");
+			} catch (IOException e) {
+				throw new ApplicationException("没有相关的图片信息");
+			}
+		} else {
+			response.setHeader("Cache-Control", "no-store");
+			response.setHeader("Pragma", "no-cache");
+			response.setDateHeader("Expires", 0);
+			response.setContentType("image/jpeg");
+			try {
+				ServletOutputStream os = response.getOutputStream();
+				FileInputStream fis = new FileInputStream(file.getFileUrl());
+				os = response.getOutputStream();
+				int count = 0;
+				byte[] buffer = new byte[1024];
+				while ((count = fis.read(buffer)) != -1) {
+					os.write(buffer, 0, count);
+					os.flush();
+				}
+			} catch (Exception e) {
+				throw new ApplicationException("图片出错");
+			}
+		}
 	}
 
 	
@@ -161,35 +186,4 @@ public class WXFileController {
 			}
 		}
 	}
-	
-	@SuppressWarnings("resource")
-	private void getPhotoByPrefix(String fileUrl, HttpServletResponse response, HttpServletRequest request) {
-		if (StringUtils.isEmpty(fileUrl)) {
-			try {
-				response.setCharacterEncoding("utf-8");
-				response.getWriter().print("没有相关的图片信息");
-			} catch (IOException e) {
-				throw new ApplicationException("没有相关的图片信息");
-			}
-		} else {
-			response.setHeader("Cache-Control", "no-store");
-			response.setHeader("Pragma", "no-cache");
-			response.setDateHeader("Expires", 0);
-			response.setContentType("image/jpeg");
-			try {
-				ServletOutputStream os = response.getOutputStream();
-				FileInputStream fis = new FileInputStream(fileUrl);
-				os = response.getOutputStream();
-				int count = 0;
-				byte[] buffer = new byte[1024];
-				while ((count = fis.read(buffer)) != -1) {
-					os.write(buffer, 0, count);
-					os.flush();
-				}
-			} catch (Exception e) {
-				throw new ApplicationException("图片出错");
-			}
-		}
-	}
-
 }
