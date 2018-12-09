@@ -36,6 +36,41 @@ CREATE TABLE `files` (
   PRIMARY KEY (`file_code`) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文件';
 
+CREATE TABLE `shop_info` (
+  `shop_id` varchar(20) NOT NULL COMMENT '商户标识',
+  `shop_name` varchar(20) DEFAULT NULL COMMENT '商户名称',
+  `mobile` varchar(20) DEFAULT NULL COMMENT '手机号',
+  `address` varchar(255) DEFAULT NULL COMMENT '地址',
+  `shop_logo_file_code` varchar(20) DEFAULT NULL COMMENT '商户logo图片',
+  `user_id` varchar(20) DEFAULT NULL COMMENT '所属用户id',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `remark` varchar(1000) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`shop_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商户';
+
+CREATE TABLE `files_group_drop_icon` (
+  `group_id` varchar(20) NOT NULL COMMENT '分组标识',
+  `group_name` varchar(20) DEFAULT NULL COMMENT '分组名称',
+  `icon_code` varchar(20) DEFAULT NULL COMMENT '当前选中下落图片',
+  `user_id` varchar(20) DEFAULT NULL COMMENT '所属用户id',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `remark` varchar(1000) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='下落图标分组';
+
+CREATE TABLE `user_wechat` (
+  `id` varchar(20) NOT NULL COMMENT '标识',
+  `user_id` varchar(20) DEFAULT NULL DEFAULT ''  COMMENT '用户id',
+  `wechat_open_id` varchar(255) DEFAULT NULL DEFAULT '' COMMENT '微信openid',
+  `wechat_union_id` varchar(255) DEFAULT NULL DEFAULT '' COMMENT '微信用户union id',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `remark` varchar(1000) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户-微信关联表';
+
 CREATE TABLE `files_favorite` (
   `id` varchar(20) NOT NULL COMMENT '标识',
   `file_code` varchar(20) DEFAULT NULL COMMENT '文件id',
