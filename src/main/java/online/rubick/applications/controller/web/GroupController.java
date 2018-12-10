@@ -35,50 +35,10 @@ public class GroupController {
 	private FilesGroupDropIconService filesGroupDropIconService;
 	@Autowired
 	private FilesService filesService;
-
-	@ApiOperation(value = "根据分组获取图片集合")
-	@GetMapping(value = "/getPhotoList")
-	public List<FilesVO> getPhoto(@RequestParam("groupId") String groupId) {
-		List<Files> filesList = filesService.findByGroupId(groupId);
-		List<FilesVO> list = new ArrayList<>();
-		for (Files files : filesList) {
-			FilesVO vo = new FilesVO();
-			BeanUtils.copyProperties(files, vo);
-			vo.setStatusName(FileStatus.getEnumByCode(files.getStatus()).getDescription());
-			list.add(vo);
-		}
-		return list;
-	}
-
-	@ApiOperation(value = "获取分组")
-	@GetMapping("getGroup")
-	public List<FilesGroupVO> getGroup() {
-		List<FilesGroup> filesGroups = filesGroupService.getAll();
-		List<FilesGroupVO> list = new ArrayList<>();
-		for (FilesGroup filesGroup : filesGroups) {
-			FilesGroupVO vo = new FilesGroupVO();
-			BeanUtils.copyProperties(filesGroup, vo);
-			list.add(vo);
-		}
-		return list;
-	}
 	
 	@ApiOperation(value = "获取下落图标分组")
 	@GetMapping("getDropGroup")
 	public List<FilesGroupDropIconVO> getDropGroup() {
-		List<FilesGroupDropIcon> filesGroups = filesGroupDropIconService.getAll();
-		List<FilesGroupDropIconVO> list = new ArrayList<>();
-		for (FilesGroupDropIcon filesGroup : filesGroups) {
-			FilesGroupDropIconVO vo = new FilesGroupDropIconVO();
-			BeanUtils.copyProperties(filesGroup, vo);
-			list.add(vo);
-		}
-		return list;
-	}
-	
-	@ApiOperation(value = "获取下落图标")
-	@GetMapping("getDropIcon")
-	public List<FilesGroupDropIconVO> getDropIcon() {
 		List<FilesGroupDropIcon> filesGroups = filesGroupDropIconService.getAll();
 		List<FilesGroupDropIconVO> list = new ArrayList<>();
 		for (FilesGroupDropIcon filesGroup : filesGroups) {
