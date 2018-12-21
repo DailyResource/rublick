@@ -1,6 +1,7 @@
 CREATE TABLE `files_group` (
   `group_id` varchar(20) NOT NULL COMMENT '分组标识',
   `group_name` varchar(20) DEFAULT NULL COMMENT '分组名称',
+  `group_type` varchar(20) DEFAULT NULL COMMENT '分组类型',
   `file_code` varchar(20) DEFAULT NULL COMMENT '封面图片',
   `user_id` varchar(20) DEFAULT NULL COMMENT '所属用户id',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
@@ -9,11 +10,23 @@ CREATE TABLE `files_group` (
    PRIMARY KEY (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文件分组';
 
+CREATE TABLE `files_group_type` (
+  `type_code` varchar(20) NOT NULL COMMENT '类型标识',
+  `type_name` varchar(20) DEFAULT NULL COMMENT '类型名称',
+  `preset` char(1) NOT NULL COMMENT '预设状态：0、系统预设，1、用户自定义',
+  `user_id` varchar(20) DEFAULT NULL COMMENT '所属用户id',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `remark` varchar(1000) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`type_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文件分组类型';
+
+
 CREATE TABLE `files` (
   `file_code` varchar(20) NOT NULL COMMENT '文件标识',
   `file_name` varchar(50) DEFAULT NULL COMMENT '文件名',
   `group_id` varchar(20) DEFAULT NULL COMMENT '文件分组',
-  `status` char(1) DEFAULT NULL DEFAULT '0' COMMENT '状态',
+  `status` char(1) DEFAULT NULL DEFAULT '0' COMMENT '状态：0、下架，1、准备上架，2、上架',
   `user_id` varchar(20) DEFAULT NULL COMMENT '所属用户id',
   `extension` varchar(20) DEFAULT NULL COMMENT '扩展名',
   `file_url` varchar(500) DEFAULT NULL COMMENT '链接',
@@ -41,17 +54,6 @@ CREATE TABLE `shop_info` (
   PRIMARY KEY (`shop_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商户';
 
-CREATE TABLE `files_group_drop_icon` (
-  `group_id` varchar(20) NOT NULL COMMENT '分组标识',
-  `group_name` varchar(20) DEFAULT NULL COMMENT '分组名称',
-  `icon_code` varchar(20) DEFAULT NULL COMMENT '当前选中下落图片',
-  `user_id` varchar(20) DEFAULT NULL COMMENT '所属用户id',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `remark` varchar(1000) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='下落图标分组';
-
 CREATE TABLE `user_wechat` (
   `id` varchar(20) NOT NULL COMMENT '标识',
   `user_id` varchar(20) DEFAULT NULL DEFAULT ''  COMMENT '用户id',
@@ -67,8 +69,8 @@ CREATE TABLE `files_favorite` (
   `id` varchar(20) NOT NULL COMMENT '标识',
   `file_code` varchar(20) DEFAULT NULL COMMENT '文件id',
   `favorite_user` varchar(20) DEFAULT NULL COMMENT '评论用户id',
-	`is_favorite` CHAR(1) DEFAULT NULL COMMENT '是否喜爱',
-	`create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `is_favorite` char(1) DEFAULT NULL COMMENT '是否喜爱：0、不喜欢，1、喜欢',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='喜爱表';
@@ -78,7 +80,7 @@ CREATE TABLE `files_comment` (
   `file_code` varchar(20) DEFAULT NULL COMMENT '文件id',
   `comment_user` varchar(20) DEFAULT NULL COMMENT '评论用户id',
   `comment_content` varchar(1000) DEFAULT NULL COMMENT '评论内容',
-	`create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评论表';

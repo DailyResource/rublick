@@ -1,1 +1,1 @@
-INSERT INTO `rubick`.`files_group_drop_icon`(`group_id`, `group_name`) VALUES ('0', '下落图标');
+INSERT INTO `rubick`.`files_group_type`(`type_code`, `type_name`, `type_status`, `remark`) VALUES ('1001', '下落图标', '0', '下落图标');
