@@ -2,6 +2,7 @@ package online.rubick.applications.dao.rubick;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import online.rubick.applications.entity.rubick.FilesGroup;
@@ -21,4 +22,6 @@ public interface FilesGroupMapper {
 	int updateByPrimaryKey(FilesGroup record);
 
 	List<FilesGroup> getAll();
+
+	List<FilesGroup> findByUserIdAndType(@Param("userId") String userId, @Param("groupType") String groupType);
 }
