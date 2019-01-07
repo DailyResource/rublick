@@ -43,6 +43,7 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='人员角色关联表';
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
 `role_id`  VARCHAR(20)  NOT NULL COMMENT '角色标识',
+`role_code`  VARCHAR(20)  NOT NULL COMMENT '角色编码',
 `status`  CHAR(1) DEFAULT NULL COMMENT '1:有效;0:无效',
 `role_name`  VARCHAR(50) DEFAULT NULL COMMENT '角色名称',
 `description`  VARCHAR(250) DEFAULT NULL COMMENT '描述',
@@ -186,5 +187,5 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='资源数据';
 
 INSERT INTO `sys_user` (`user_id`,`login_id`,`name`,`mobile`,`email`,`password`,`state`,`create_date`) VALUES ('0','rubick','GM','19965502527','291696153@qq.com','def240abb91b572271eb87777bfbf52f62106534d7beb63f4b9a1cb29732245661acfba7bcc96e21','1','2018-12-12');
 INSERT INTO `sys_user_role`(`id`, `role_id`, `user_id`) VALUES ('0', '0', '0');
-INSERT INTO `sys_role`(`role_id`, `status`, `role_name`, `description`) VALUES ('0', '0', '超级管理员', '超级管理员');
-INSERT INTO `sys_role`(`role_id`, `status`, `role_name`, `description`) VALUES ('1', '1', '系统管理员', '系统管理员');
+INSERT INTO `sys_role`(`role_id`,`role_code`, `status`, `role_name`, `description`) VALUES ('0', '0','1', '超级管理员', '超级管理员');
+INSERT INTO `sys_role`(`role_id`,`role_code`, `status`, `role_name`, `description`) VALUES ('1', '1','1', '系统管理员', '系统管理员');
