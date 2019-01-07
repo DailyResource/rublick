@@ -1,7 +1,7 @@
 CREATE TABLE `files_group` (
   `group_id` varchar(20) NOT NULL COMMENT '分组标识',
   `group_name` varchar(20) DEFAULT NULL COMMENT '分组名称',
-  `group_type` varchar(20) DEFAULT NULL COMMENT '分组类型：0、预设，1、用户自定义',
+  `group_type` varchar(20) DEFAULT NULL COMMENT '分组类型：0、用户自定义，1、下落图标 。其他、关联枚举值',
   `file_code` varchar(20) DEFAULT NULL COMMENT '封面图片',
   `user_id` varchar(20) DEFAULT NULL COMMENT '所属用户id',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
