@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import online.rubick.applications.entity.rubick.Files;
-import online.rubick.applications.enums.rubick.FileStatus;
+import online.rubick.applications.enums.rubick.FileStatusEnum;
 import online.rubick.applications.service.rubick.FilesService;
 import online.rubick.applications.util.IdUtil;
 
@@ -65,7 +65,7 @@ public class FileController {
 		fileInsert.setExtension(file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1));
 		fileInsert.setFileUrl(
 				prefix + prefixSecondBig + "/" + fileInsert.getFileName() + "." + fileInsert.getExtension());
-		fileInsert.setStatus(FileStatus.READY.getCode());
+		fileInsert.setStatus(FileStatusEnum.READY.getCode());
 		fileInsert.setSize(file.getSize());
 		fileInsert.setCreateTime(new Date());
 		fileInsert.setUpdateTime(new Date());

@@ -15,14 +15,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import online.rubick.applications.entity.rubick.Files;
 import online.rubick.applications.entity.rubick.FilesGroup;
-import online.rubick.applications.entity.rubick.FilesGroupDropIcon;
-import online.rubick.applications.enums.rubick.FileStatus;
-import online.rubick.applications.service.rubick.FilesGroupDropIconService;
+import online.rubick.applications.enums.rubick.FileStatusEnum;
+import online.rubick.applications.enums.rubick.GroupTypeEnum;
+import online.rubick.applications.security.annotation.SessionAccount;
 import online.rubick.applications.service.rubick.FilesGroupService;
 import online.rubick.applications.service.rubick.FilesService;
-import online.rubick.applications.vo.rubick.FilesGroupDropIconVO;
 import online.rubick.applications.vo.rubick.FilesGroupVO;
 import online.rubick.applications.vo.rubick.FilesVO;
+import online.rubick.applications.vo.sys.UserVO;
 
 @Api(description = "分组管理")
 @RestController
@@ -31,8 +31,6 @@ import online.rubick.applications.vo.rubick.FilesVO;
 public class WXGroupController {
 	@Autowired
 	private FilesGroupService filesGroupService;
-	@Autowired
-	private FilesGroupDropIconService filesGroupDropIconService;
 	@Autowired
 	private FilesService filesService;
 
@@ -44,7 +42,7 @@ public class WXGroupController {
 		for (Files files : filesList) {
 			FilesVO vo = new FilesVO();
 			BeanUtils.copyProperties(files, vo);
-			vo.setStatusName(FileStatus.getEnumByCode(files.getStatus()).getDescription());
+			vo.setStatusName(FileStatusEnum.getEnumByCode(files.getStatus()).getDescription());
 			list.add(vo);
 		}
 		return list;
@@ -52,8 +50,8 @@ public class WXGroupController {
 
 	@ApiOperation(value = "获取分组")
 	@GetMapping("getGroup")
-	public List<FilesGroupVO> getGroup() {
-		List<FilesGroup> filesGroups = filesGroupService.getAll();
+	public List<FilesGroupVO> getGroup(@SessionAccount UserVO userVO) {
+		List<FilesGroup> filesGroups = filesGroupService.findByUserIdAndType(userVO.getUserId(), null);
 		List<FilesGroupVO> list = new ArrayList<>();
 		for (FilesGroup filesGroup : filesGroups) {
 			FilesGroupVO vo = new FilesGroupVO();
@@ -65,10 +63,14 @@ public class WXGroupController {
 
 	@ApiOperation(value = "获取下落图标")
 	@GetMapping("getDropIcon")
-	public FilesGroupDropIconVO getDropIcon() {
-		FilesGroupDropIcon filesGroup = filesGroupDropIconService.findById("0");
-		FilesGroupDropIconVO vo = new FilesGroupDropIconVO();
-		BeanUtils.copyProperties(filesGroup, vo);
+	public FilesGroupVO getDropIcon(@SessionAccount UserVO userVO) {
+		List<FilesGroup> filesGroups = filesGroupService.findByUserIdAndType(userVO.getUserId(),
+				GroupTypeEnum.DROP.getCode());
+		if (filesGroups.isEmpty()) {
+			return null;
+		}
+		FilesGroupVO vo = new FilesGroupVO();
+		BeanUtils.copyProperties(filesGroups.get(0), vo);
 		return vo;
 	}
 

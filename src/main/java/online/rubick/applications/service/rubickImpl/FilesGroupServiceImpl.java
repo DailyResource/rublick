@@ -10,8 +10,8 @@ import online.rubick.applications.entity.rubick.FilesGroup;
 import online.rubick.applications.service.rubick.FilesGroupService;
 
 @Service
-public class FilesGroupServiceImpl implements FilesGroupService{
- 
+public class FilesGroupServiceImpl implements FilesGroupService {
+
 	@Autowired
 	private FilesGroupMapper mapper;
 
@@ -39,5 +39,10 @@ public class FilesGroupServiceImpl implements FilesGroupService{
 	public List<FilesGroup> getAll() {
 		return mapper.getAll();
 	}
-	
+
+	@Override
+	public List<FilesGroup> findByUserIdAndType(String userId, String groupType) {
+		return mapper.findByUserIdAndType(userId, groupType);
+	}
+
 }

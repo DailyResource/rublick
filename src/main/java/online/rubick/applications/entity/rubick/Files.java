@@ -20,8 +20,6 @@ public class Files implements Serializable {
 
     private Long size;
 
-    private String relatedId;
-
     private String title;
 
     private String remark;
@@ -29,10 +27,6 @@ public class Files implements Serializable {
     private Date createTime;
 
     private Date updateTime;
-
-    private Integer loveCount;
-
-    private Integer dislikeCount;
 
     private static final long serialVersionUID = 1L;
 
@@ -100,14 +94,6 @@ public class Files implements Serializable {
         this.size = size;
     }
 
-    public String getRelatedId() {
-        return relatedId;
-    }
-
-    public void setRelatedId(String relatedId) {
-        this.relatedId = relatedId == null ? null : relatedId.trim();
-    }
-
     public String getTitle() {
         return title;
     }
@@ -140,22 +126,6 @@ public class Files implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Integer getLoveCount() {
-        return loveCount;
-    }
-
-    public void setLoveCount(Integer loveCount) {
-        this.loveCount = loveCount;
-    }
-
-    public Integer getDislikeCount() {
-        return dislikeCount;
-    }
-
-    public void setDislikeCount(Integer dislikeCount) {
-        this.dislikeCount = dislikeCount;
-    }
-
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -176,13 +146,10 @@ public class Files implements Serializable {
             && (this.getExtension() == null ? other.getExtension() == null : this.getExtension().equals(other.getExtension()))
             && (this.getFileUrl() == null ? other.getFileUrl() == null : this.getFileUrl().equals(other.getFileUrl()))
             && (this.getSize() == null ? other.getSize() == null : this.getSize().equals(other.getSize()))
-            && (this.getRelatedId() == null ? other.getRelatedId() == null : this.getRelatedId().equals(other.getRelatedId()))
             && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getLoveCount() == null ? other.getLoveCount() == null : this.getLoveCount().equals(other.getLoveCount()))
-            && (this.getDislikeCount() == null ? other.getDislikeCount() == null : this.getDislikeCount().equals(other.getDislikeCount()));
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
     }
 
     @Override
@@ -197,13 +164,10 @@ public class Files implements Serializable {
         result = prime * result + ((getExtension() == null) ? 0 : getExtension().hashCode());
         result = prime * result + ((getFileUrl() == null) ? 0 : getFileUrl().hashCode());
         result = prime * result + ((getSize() == null) ? 0 : getSize().hashCode());
-        result = prime * result + ((getRelatedId() == null) ? 0 : getRelatedId().hashCode());
         result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getLoveCount() == null) ? 0 : getLoveCount().hashCode());
-        result = prime * result + ((getDislikeCount() == null) ? 0 : getDislikeCount().hashCode());
         return result;
     }
 
@@ -221,13 +185,10 @@ public class Files implements Serializable {
         sb.append(", extension=").append(extension);
         sb.append(", fileUrl=").append(fileUrl);
         sb.append(", size=").append(size);
-        sb.append(", relatedId=").append(relatedId);
         sb.append(", title=").append(title);
         sb.append(", remark=").append(remark);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
-        sb.append(", loveCount=").append(loveCount);
-        sb.append(", dislikeCount=").append(dislikeCount);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

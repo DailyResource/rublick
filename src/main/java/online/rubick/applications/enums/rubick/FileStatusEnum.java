@@ -4,7 +4,7 @@ import org.springframework.util.StringUtils;
 
 import online.rubick.applications.enums.sys.EnumUnit;
 
-public enum FileStatus implements EnumUnit<FileStatus>{
+public enum FileStatusEnum implements EnumUnit<FileStatusEnum>{
 
 	DELETE("0","已刪除"),
 	ONLINE("1","上架"),
@@ -14,7 +14,7 @@ public enum FileStatus implements EnumUnit<FileStatus>{
 	private String code;
 	private String desc;
 	
-	private FileStatus(String code,String desc){
+	private FileStatusEnum(String code,String desc){
 		this.code = code;
 		this.desc = desc;
 	}
@@ -29,11 +29,11 @@ public enum FileStatus implements EnumUnit<FileStatus>{
 		return desc;
 	}
 
-	public static FileStatus getEnumByCode(String code) {
+	public static FileStatusEnum getEnumByCode(String code) {
 		if (StringUtils.isEmpty(code)) {
             return null;
         }
-        for (FileStatus element : FileStatus.values()) {
+        for (FileStatusEnum element : FileStatusEnum.values()) {
             if (code.equals(element.getCode())) {
                 return element;
             }
