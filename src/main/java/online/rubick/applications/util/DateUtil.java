@@ -766,4 +766,38 @@ public class DateUtil {
 		return list;
 	}
 
+
+	/**
+	 * 获取当前日期所在月份中=>每周的开始时间和结束时间
+	 * 
+	 * @param date
+	 * 		需要查询的日期
+	 * @return
+	 * 		list:yyyy-MM-dd,yyyy-MM-dd 
+	 * 		返回每周的开始和结束时间的String集合
+	 */
+	public static List<String> getWeekDateByMonth(Date date) {
+		// 声明保存日期集合
+		List<String> list = new ArrayList<>();
+		// 用Calendar 进行日期比较判断
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		// 日期所在月的天数
+		int dayMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+		// 设置为当前第一天的时间
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
+
+		for (int i = 0; i < dayMonth; i++) {
+			if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY || i == 0) {
+				list.add(formatDate(calendar.getTime(), DATE_PATTENT));
+			}
+			if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY || i == dayMonth - 1) {
+				list.set(list.size() - 1,
+						list.get(list.size() - 1) + "," + formatDate(calendar.getTime(), DATE_PATTENT));
+			}
+			calendar.add(Calendar.DAY_OF_MONTH, 1);
+		}
+		return list;
+	}
 }
