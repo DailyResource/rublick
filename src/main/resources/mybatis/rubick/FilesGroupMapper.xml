@@ -143,5 +143,6 @@
        	and group_type = #{groupType,jdbcType=VARCHAR}
       </if>
     </where>
+    order by group_type desc
   </select>
 </mapper>

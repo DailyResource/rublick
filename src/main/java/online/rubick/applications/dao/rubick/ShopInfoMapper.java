@@ -1,5 +1,7 @@
 package online.rubick.applications.dao.rubick;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import online.rubick.applications.entity.rubick.ShopInfo;
@@ -17,4 +19,6 @@ public interface ShopInfoMapper {
     int updateByPrimaryKeySelective(ShopInfo record);
 
     int updateByPrimaryKey(ShopInfo record);
+    
+    List<ShopInfo> getAll();
 }

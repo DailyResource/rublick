@@ -1,5 +1,6 @@
 package online.rubick.applications.service.rubickImpl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import online.rubick.applications.dao.rubick.FilesGroupMapper;
 import online.rubick.applications.entity.rubick.FilesGroup;
 import online.rubick.applications.service.rubick.FilesGroupService;
+import online.rubick.applications.util.IdUtil;
 
 @Service
 public class FilesGroupServiceImpl implements FilesGroupService {
@@ -17,6 +19,9 @@ public class FilesGroupServiceImpl implements FilesGroupService {
 
 	@Override
 	public int save(FilesGroup entity) {
+		entity.setGroupId(IdUtil.getId());
+		entity.setCreateTime(new Date());
+		entity.setUpdateTime(new Date());
 		return mapper.insert(entity);
 	}
 
@@ -27,6 +32,7 @@ public class FilesGroupServiceImpl implements FilesGroupService {
 
 	@Override
 	public int update(FilesGroup entity) {
+		entity.setUpdateTime(new Date());
 		return mapper.updateByPrimaryKeySelective(entity);
 	}
 

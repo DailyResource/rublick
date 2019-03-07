@@ -182,4 +182,10 @@
 		where group_id = #{groupId,jdbcType=VARCHAR}
 		and status != '0'
   </select>
+  
+  <update id="updateFilesGroupId">
+    update files
+    set group_id = #{newGroupId,jdbcType=VARCHAR},
+    where group_id = #{oldGroupId,jdbcType=VARCHAR}
+  </update>
 </mapper>

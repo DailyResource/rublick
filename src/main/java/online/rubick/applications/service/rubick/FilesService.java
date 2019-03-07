@@ -8,4 +8,6 @@ import online.rubick.applications.service.BaseService;
 public interface FilesService extends BaseService<Files> {
 
 	List<Files> findByGroupId(String groupId);
+
+	int updateFilesGroupId(String oldGroupId, String newGroupId);
 }

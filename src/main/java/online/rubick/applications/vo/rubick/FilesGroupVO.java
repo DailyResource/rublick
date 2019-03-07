@@ -5,19 +5,17 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class FilesGroupVO {
+
 	private String groupId;
-
 	private String groupName;
-
+	private String groupType;
 	private String fileCode;
+	private String remark;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
-
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updateTime;
-
-	private String remark;
 
 	public String getGroupId() {
 		return groupId;
@@ -33,6 +31,14 @@ public class FilesGroupVO {
 
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
+	}
+
+	public String getGroupType() {
+		return groupType;
+	}
+
+	public void setGroupType(String groupType) {
+		this.groupType = groupType;
 	}
 
 	public String getFileCode() {

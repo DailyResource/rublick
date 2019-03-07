@@ -6,9 +6,10 @@ import online.rubick.applications.enums.sys.EnumUnit;
 
 public enum GroupTypeEnum implements EnumUnit<GroupTypeEnum>{
 
-	NO_GROUP("-1","未分组"),
+
 	DIY("0","用户自定义分组"),
-	DROP("1","下落图标分组");
+	DROP("1","下落图标分组"),
+	NO_GROUP("2","未分组");
 	
 	private String code;
 	private String desc;

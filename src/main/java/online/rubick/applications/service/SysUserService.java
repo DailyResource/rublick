@@ -22,6 +22,7 @@ import online.rubick.applications.entity.sys.SysUserLog;
 import online.rubick.applications.entity.sys.SysUserRole;
 import online.rubick.applications.enums.sys.UserState;
 import online.rubick.applications.enums.sys.YesOrNo;
+import online.rubick.applications.service.rubick.ShopInfoService;
 import online.rubick.applications.util.IdUtil;
 import online.rubick.applications.vo.sys.UserVO;
 
@@ -33,16 +34,16 @@ public class SysUserService {
 
 	@Autowired
 	private SysUserMapper userDao;
-
 	@Autowired
 	private SysUserLogMapper userLogDao;
-
 	@Autowired
 	private SysUserRoleService sysUserRoleService;
-
 	@Autowired
 	private SysRoleService sysRoleService;
-
+	@Autowired
+	private ShopInfoService shopInoService;;
+	
+	
 	public List<SysUser> getUserByLoginId(String loginId) {
 		return userDao.selectByLoginId(loginId);
 	}
@@ -62,6 +63,7 @@ public class SysUserService {
         sur.setUserId(user.getUserId());
         sur.setRoleId(user.getRole());
         sysUserRoleService.save(sur);    
+        shopInoService.createShopInfo(user.getUserId());
 		return userDao.insertSelective(user) > 0;	
 	}
 

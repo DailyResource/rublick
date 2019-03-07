@@ -139,4 +139,9 @@
       remark = #{remark,jdbcType=VARCHAR}
     where shop_id = #{shopId,jdbcType=VARCHAR}
   </update>
+   <select id="getAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_info
+  </select>
 </mapper>

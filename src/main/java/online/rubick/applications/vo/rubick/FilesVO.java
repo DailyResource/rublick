@@ -5,39 +5,24 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class FilesVO {
+
 	private String fileCode;
-
 	private String fileName;
-
 	private String groupId;
-
 	private String status;
-
-	private String statusName;
-
 	private String userId;
-
 	private String extension;
-
 	private String fileUrl;
-
-	private Integer size;
-
-	private String relatedId;
-
+	private Long size;
 	private String title;
-
 	private String remark;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
-
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updateTime;
 
-	private Integer loveCount;
-
-	private Integer dislikeCount;
+	private String statusName;
 
 	public String getStatusName() {
 		return statusName;
@@ -103,20 +88,12 @@ public class FilesVO {
 		this.fileUrl = fileUrl;
 	}
 
-	public Integer getSize() {
+	public Long getSize() {
 		return size;
 	}
 
-	public void setSize(Integer size) {
+	public void setSize(Long size) {
 		this.size = size;
-	}
-
-	public String getRelatedId() {
-		return relatedId;
-	}
-
-	public void setRelatedId(String relatedId) {
-		this.relatedId = relatedId;
 	}
 
 	public String getTitle() {
@@ -149,22 +126,6 @@ public class FilesVO {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
-	}
-
-	public Integer getLoveCount() {
-		return loveCount;
-	}
-
-	public void setLoveCount(Integer loveCount) {
-		this.loveCount = loveCount;
-	}
-
-	public Integer getDislikeCount() {
-		return dislikeCount;
-	}
-
-	public void setDislikeCount(Integer dislikeCount) {
-		this.dislikeCount = dislikeCount;
 	}
 
 }

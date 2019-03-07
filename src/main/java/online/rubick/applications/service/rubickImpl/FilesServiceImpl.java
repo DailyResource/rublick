@@ -45,4 +45,9 @@ public class FilesServiceImpl implements FilesService {
 		return mapper.selectByGroupId(groupId);
 	}
 
+	@Override
+	public int updateFilesGroupId(String oldGroupId, String newGroupId) {
+		return mapper.updateFilesGroupId(oldGroupId, newGroupId);
+	}
+
 }
