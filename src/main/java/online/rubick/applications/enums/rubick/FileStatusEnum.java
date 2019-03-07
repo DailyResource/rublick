@@ -6,10 +6,9 @@ import online.rubick.applications.enums.sys.EnumUnit;
 
 public enum FileStatusEnum implements EnumUnit<FileStatusEnum>{
 
-	DELETE("0","已刪除"),
+	OFFLINE("0","下架"),
 	ONLINE("1","上架"),
-	OFFLINE("2","下架"),
-	READY("3","筹备中");
+	READY("2","筹备中");
 
 	private String code;
 	private String desc;
