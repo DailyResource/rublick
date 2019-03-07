@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,6 +58,16 @@ public class FileController {
 	@Autowired
 	private FilesService filesService;
 
+	@ApiOperation(value = "	删除图片")
+	@DeleteMapping("deleteFile")
+	public void deleteFile(@RequestParam("fileCode") String fileCode) {
+		Files files = filesService.findById(fileCode);
+		filesService.delete(fileCode);
+		//刪除本地文件
+		File fileDelete = new File(files.getFileUrl());
+		fileDelete.delete();
+	}
+	
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "请求成功") })
 	@ApiOperation(value = "上传文件", notes = "上传成功后，服务器将返回文件的地址信息。")
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)

@@ -21,6 +21,7 @@ import online.rubick.applications.entity.rubick.FilesGroup;
 import online.rubick.applications.enums.rubick.FileStatusEnum;
 import online.rubick.applications.enums.rubick.GroupTypeEnum;
 import online.rubick.applications.query.rubick.FilesGroupQuery;
+import online.rubick.applications.query.rubick.FilesQuery;
 import online.rubick.applications.security.annotation.SessionAccount;
 import online.rubick.applications.service.rubick.FilesGroupService;
 import online.rubick.applications.service.rubick.FilesService;
@@ -107,6 +108,41 @@ public class GroupController {
 		String newGroupId = filesGroupService.findByUserIdAndType(userVO.getUserId(), GroupTypeEnum.NO_GROUP.getCode())
 				.get(0).getGroupId();
 		filesService.updateFilesGroupId(groupId, newGroupId);
+	}
+
+	@ApiOperation(value = "	修改图片信息")
+	@PostMapping("updateFile")
+	public void updateFile(@RequestBody FilesQuery filesQuery) {
+		Files file = filesService.findById(filesQuery.getFileCode());
+		file.setFileName(filesQuery.getFileName());
+		file.setTitle(filesQuery.getTitle());
+		file.setRemark(filesQuery.getRemark());
+		file.setGroupId(filesQuery.getGroupId());
+		filesService.update(file);
+	}
+
+	@ApiOperation(value = "	上架/下架")
+	@PostMapping("updateFileStatus")
+	public void updateFileStatus(@RequestParam("fileCode") String fileCode) {
+		Files file = filesService.findById(fileCode);
+		if (file == null) {
+			return;
+		}
+		if (file.getStatus() == FileStatusEnum.ONLINE.getCode()) {
+			file.setStatus(FileStatusEnum.OFFLINE.getCode());
+		} else {
+			file.setStatus(FileStatusEnum.ONLINE.getCode());
+		}
+		filesService.update(file);
+	}
+
+	@ApiOperation(value = "将图片设置为分组封面")
+	@PostMapping("updateGroupFile")
+	public void updateGroupFile(@RequestParam("fileCode") String fileCode) {
+		Files file = filesService.findById(fileCode);
+		FilesGroup group = filesGroupService.findById(file.getGroupId());
+		group.setFileCode(file.getFileCode());
+		filesGroupService.update(group);
 	}
 
 }
