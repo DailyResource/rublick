@@ -28,6 +28,6 @@ SMS:
     WARN: SMS_139233533
   message: false
 file: 
-  prefix: "/wx/images"
+  prefix: "D:/wx/images"
   prefixSecondSmall: "/small"
   prefixSecondBig: "/big"
